@@ -19,6 +19,7 @@
 		9436AAD11DB9A0290029B9B2 /* LargeImageCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436AAD01DB9A0290029B9B2 /* LargeImageCellNode.swift */; };
 		9436AAD31DB9A0D80029B9B2 /* coltrane.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9436AAD21DB9A0D80029B9B2 /* coltrane.jpg */; };
 		9436AAD51DBA78170029B9B2 /* Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436AAD41DBA78170029B9B2 /* Crop.swift */; };
+		94752ABB1DC63B8C00B1B781 /* WebCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */; };
 		CCB01CAB1C5FEA6E00CA64C4 /* TailLoadingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB01CAA1C5FEA6E00CA64C4 /* TailLoadingCellNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		9436AAD01DB9A0290029B9B2 /* LargeImageCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeImageCellNode.swift; sourceTree = "<group>"; };
 		9436AAD21DB9A0D80029B9B2 /* coltrane.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = coltrane.jpg; sourceTree = "<group>"; };
 		9436AAD41DBA78170029B9B2 /* Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crop.swift; sourceTree = "<group>"; };
+		94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCellNode.swift; sourceTree = "<group>"; };
 		9B402DAAE8C6A8B9BE1A506B /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		CCB01CAA1C5FEA6E00CA64C4 /* TailLoadingCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TailLoadingCellNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +86,7 @@
 				9436AACA1DB81B6C0029B9B2 /* HeadlineSummaryCellNode.swift */,
 				9436AACC1DB833A00029B9B2 /* ThumbnailCellNode.swift */,
 				9436AAD01DB9A0290029B9B2 /* LargeImageCellNode.swift */,
+				94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */,
 				9436AAD41DBA78170029B9B2 /* Crop.swift */,
 				050E7C7119D22E19004363C2 /* Supporting Files */,
 			);
@@ -247,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94752ABB1DC63B8C00B1B781 /* WebCellNode.swift in Sources */,
 				9436AAD51DBA78170029B9B2 /* Crop.swift in Sources */,
 				9436AACD1DB833A00029B9B2 /* ThumbnailCellNode.swift in Sources */,
 				CCB01CAB1C5FEA6E00CA64C4 /* TailLoadingCellNode.swift in Sources */,
