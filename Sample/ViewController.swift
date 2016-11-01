@@ -41,25 +41,6 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
     super.init(node: ASTableNode())
     tableNode.delegate = self
     tableNode.dataSource = self
-    
-    let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-    let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-    dispatch_async(backgroundQueue, {
-      (1...10).forEach { i in
-        let headline = ViewController.words(2,8)
-        let summary = ViewController.words(20,40)
-        
-        let crop = Crop(imageFilename: "coltrane.jpg", size: CGSize(width: 540, height: 300))
-        let node = LargeImageCellNode(headline: headline, summary: summary, kicker: "KICKER", credit: "Photo by Joe Blow", crop: crop)
-        
-        let constrainedSize = ASSizeRange(min: CGSize(width: 400, height: 0.0), max: CGSize(width: 400, height: CGFloat.max))
-        
-        let layoutSpec = node.layoutSpecThatFits(constrainedSize)
-        let layout = layoutSpec.layoutThatFits(constrainedSize)
-        let height = round(layout.size.height)
-        print(height)
-      }
-    })
   }
 
   required init?(coder aDecoder: NSCoder) {
