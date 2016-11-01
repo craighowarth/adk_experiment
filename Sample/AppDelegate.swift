@@ -16,6 +16,7 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    ASRangeController.setShouldShowRangeDebugOverlay(true)
     let window = UIWindow(frame: UIScreen.mainScreen().bounds)
     window.backgroundColor = UIColor.whiteColor()
     window.rootViewController = UINavigationController(rootViewController: ViewController());
