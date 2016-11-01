@@ -13,6 +13,8 @@
 		161FE6897BB33A570A663F90 /* Pods_Sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6141C83F216FCA6D7EAEE /* Pods_Sample.framework */; };
 		2A3038B01DC8F02C00228931 /* miles.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A3038AF1DC8F02C00228931 /* miles.png */; };
 		2A3038B41DC8F7DD00228931 /* RRFPSBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3038B31DC8F7DD00228931 /* RRFPSBar.m */; };
+		2A3038B61DC90F6900228931 /* FooterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3038B51DC90F6900228931 /* FooterNode.swift */; };
+		2A3038B81DC9119200228931 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3038B71DC9119200228931 /* Media.xcassets */; };
 		2AA47F121DC8E60F00821444 /* ScrollCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA47F111DC8E60F00821444 /* ScrollCellNode.swift */; };
 		6C5053DB19EE266A00E385DE /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C5053D919EE266A00E385DE /* Default-667h@2x.png */; };
 		6C5053DC19EE266A00E385DE /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C5053DA19EE266A00E385DE /* Default-736h@3x.png */; };
@@ -38,6 +40,8 @@
 		2A3038B11DC8F7DC00228931 /* Sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sample-Bridging-Header.h"; sourceTree = "<group>"; };
 		2A3038B21DC8F7DD00228931 /* RRFPSBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRFPSBar.h; sourceTree = "<group>"; };
 		2A3038B31DC8F7DD00228931 /* RRFPSBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRFPSBar.m; sourceTree = "<group>"; };
+		2A3038B51DC90F6900228931 /* FooterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterNode.swift; sourceTree = "<group>"; };
+		2A3038B71DC9119200228931 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2AA47F111DC8E60F00821444 /* ScrollCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollCellNode.swift; sourceTree = "<group>"; };
 		6C5053D919EE266A00E385DE /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = SOURCE_ROOT; };
 		6C5053DA19EE266A00E385DE /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = SOURCE_ROOT; };
@@ -96,6 +100,7 @@
 				9436AAD01DB9A0290029B9B2 /* LargeImageCellNode.swift */,
 				94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */,
 				2AA47F111DC8E60F00821444 /* ScrollCellNode.swift */,
+				2A3038B51DC90F6900228931 /* FooterNode.swift */,
 				9436AAD41DBA78170029B9B2 /* Crop.swift */,
 				2A3038B21DC8F7DD00228931 /* RRFPSBar.h */,
 				2A3038B31DC8F7DD00228931 /* RRFPSBar.m */,
@@ -115,6 +120,7 @@
 				9436AACE1DB835C40029B9B2 /* thumbnail.jpg */,
 				9436AAD21DB9A0D80029B9B2 /* coltrane.jpg */,
 				2A3038AF1DC8F02C00228931 /* miles.png */,
+				2A3038B71DC9119200228931 /* Media.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -202,6 +208,7 @@
 			files = (
 				9436AAD31DB9A0D80029B9B2 /* coltrane.jpg in Resources */,
 				9436AACF1DB835C40029B9B2 /* thumbnail.jpg in Resources */,
+				2A3038B81DC9119200228931 /* Media.xcassets in Resources */,
 				2A3038B01DC8F02C00228931 /* miles.png in Resources */,
 				05DDD8DB19D2336300013C30 /* Default-568h@2x.png in Resources */,
 				6C5053DB19EE266A00E385DE /* Default-667h@2x.png in Resources */,
@@ -266,6 +273,7 @@
 			files = (
 				94752ABB1DC63B8C00B1B781 /* WebCellNode.swift in Sources */,
 				2A3038B41DC8F7DD00228931 /* RRFPSBar.m in Sources */,
+				2A3038B61DC90F6900228931 /* FooterNode.swift in Sources */,
 				9436AAD51DBA78170029B9B2 /* Crop.swift in Sources */,
 				9436AACD1DB833A00029B9B2 /* ThumbnailCellNode.swift in Sources */,
 				CCB01CAB1C5FEA6E00CA64C4 /* TailLoadingCellNode.swift in Sources */,
@@ -369,7 +377,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9B402DAAE8C6A8B9BE1A506B /* Pods-Sample.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = FL458598BU;
 				INFOPLIST_FILE = Sample/Info.plist;
@@ -386,7 +393,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 08B9AAEC0A03243C3516AA96 /* Pods-Sample.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = FL458598BU;
 				INFOPLIST_FILE = Sample/Info.plist;

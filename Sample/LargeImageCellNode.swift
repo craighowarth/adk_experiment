@@ -15,6 +15,7 @@ final class LargeImageCellNode: ASCellNode {
   var kickerNode = ASTextNode()
   var creditNode = ASTextNode()
   var imageNode = ASImageNode()
+  var footerNode = FooterNode()
   var crop: Crop?
   var aspectRatio: CGFloat = 0.0
 
@@ -63,6 +64,7 @@ final class LargeImageCellNode: ASCellNode {
     addSubnode(kickerNode)
     addSubnode(headlineNode)
     addSubnode(summaryNode)
+    addSubnode(footerNode)
   }
   
   override func didLoad() {
@@ -91,7 +93,7 @@ final class LargeImageCellNode: ASCellNode {
     kickerHeadlineStackSpec.spacing = 2.0
 
     let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
-    verticalStackSpec.children = [ imageStackSpec, kickerHeadlineStackSpec, summaryNode ]
+    verticalStackSpec.children = [ imageStackSpec, kickerHeadlineStackSpec, summaryNode, footerNode ]
     verticalStackSpec.spacing = 10.0
     
     let insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

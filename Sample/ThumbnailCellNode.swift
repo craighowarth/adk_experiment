@@ -12,6 +12,7 @@ import UIKit
 final class ThumbnailCellNode: ASCellNode {
   var textNode = ASTextNode()
   var thumbnailNode = ASImageNode()
+  var footerNode = FooterNode()
   let thumbnailSize = CGSize(width: 75.0, height: 75.0)
   
   convenience init(headline: String, summary: String) {
@@ -48,6 +49,7 @@ final class ThumbnailCellNode: ASCellNode {
 
     addSubnode(textNode)
     addSubnode(thumbnailNode)
+    addSubnode(footerNode)
   }
   
   override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -64,8 +66,12 @@ final class ThumbnailCellNode: ASCellNode {
 
     let overlaySpec = ASOverlayLayoutSpec(child: textNode, overlay: thumbnailSpec)
 
+    let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    verticalStackSpec.children = [ overlaySpec, footerNode ]
+    verticalStackSpec.spacing = 10.0
+
     let insets = UIEdgeInsets(top: nodeMargin, left: nodeMargin, bottom: nodeMargin, right: nodeMargin)
-    let insetSpec = ASInsetLayoutSpec(insets: insets, child: overlaySpec)
+    let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalStackSpec)
     
     return insetSpec
   }

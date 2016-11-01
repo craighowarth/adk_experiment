@@ -12,6 +12,7 @@ import UIKit
 final class HeadlineSummaryCellNode: ASCellNode {
   var headlineNode = ASTextNode()
   var summaryNode = ASTextNode()
+  var footerNode = FooterNode()
   
   convenience init(headline: String, summary: String) {
     self.init()
@@ -32,12 +33,17 @@ final class HeadlineSummaryCellNode: ASCellNode {
 
     addSubnode(headlineNode)
     addSubnode(summaryNode)
+    addSubnode(footerNode)
   }
 
   override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    let headlineSummaryStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    headlineSummaryStackSpec.children = [ headlineNode, summaryNode ]
+    headlineSummaryStackSpec.spacing = 16.0
+
     let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
-    verticalStackSpec.children = [ headlineNode, summaryNode ]
-    verticalStackSpec.spacing = 16.0
+    verticalStackSpec.children = [ headlineSummaryStackSpec, footerNode ]
+    verticalStackSpec.spacing = 10.0
 
     let insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalStackSpec)
