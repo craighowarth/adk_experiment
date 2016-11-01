@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     ASRangeController.setShouldShowRangeDebugOverlay(true)
+    RRFPSBar.sharedInstance().hidden = false
     let window = UIWindow(frame: UIScreen.mainScreen().bounds)
     window.backgroundColor = UIColor.whiteColor()
     window.rootViewController = UINavigationController(rootViewController: ViewController());

@@ -19,6 +19,7 @@ import UIKit
 import AsyncDisplayKit
 
 final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate {
+  var showWebViews = false
 
   struct State {
     var itemCount: Int
@@ -62,7 +63,9 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
     let summary = ViewController.words(20,40)
     let node: ASCellNode
     let itemNumber = indexPath.row + 1
-    if itemNumber % 4 == 0 {
+    if itemNumber % 5 == 0 {
+      node = ScrollCellNode(numberOfItems: 10)
+    } else if itemNumber % 4 == 0 && showWebViews {
       let url = NSURL(string: "https://secure-ds.serving-sys.com/BurstingRes/Site-85296/WSFolders/7649898/TH029_728x90_r3.hyperesources/TH029_728x90_GiGi.jpg")!
       node = WebCellNode(url: url, height: 50)
     } else if itemNumber % 3 == 0 {
@@ -73,6 +76,8 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
     } else {
       node = HeadlineSummaryCellNode(headline: headline, summary: summary)
     }
+
+    node.selectionStyle = UITableViewCellSelectionStyle.None
 
     return node
   }
@@ -87,6 +92,11 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
       count += 1
     }
     return count
+  }
+
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    showWebViews = !showWebViews
+    tableView.reloadData()
   }
 
   func tableView(tableView: ASTableView, willBeginBatchFetchWithContext context: ASBatchContext) {
