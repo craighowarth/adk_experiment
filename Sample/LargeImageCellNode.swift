@@ -65,10 +65,6 @@ final class LargeImageCellNode: ASCellNode {
     addSubnode(summaryNode)
   }
   
-  override init() {
-    super.init()
-  }
-  
   override func didLoad() {
     if let crop = self.crop {
       imageNode.image = UIImage(named: crop.imageFilename)

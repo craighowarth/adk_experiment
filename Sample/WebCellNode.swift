@@ -37,10 +37,6 @@ final class WebCellNode: ASCellNode {
     addSubnode(webNode)
   }
   
-  override init() {
-    super.init()
-  }
-
   override func didLoad() {
     super.didLoad()
     webView = WKWebView(frame: webNode.bounds)

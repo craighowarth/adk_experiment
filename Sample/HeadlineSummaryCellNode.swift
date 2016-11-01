@@ -29,14 +29,11 @@ final class HeadlineSummaryCellNode: ASCellNode {
         NSFontAttributeName: UIFont.systemFontOfSize(14),
         NSForegroundColorAttributeName: UIColor.darkGrayColor()
       ])
-  }
 
-  override init() {
-    super.init()
     addSubnode(headlineNode)
     addSubnode(summaryNode)
   }
-  
+
   override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
     let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
     verticalStackSpec.children = [ headlineNode, summaryNode ]

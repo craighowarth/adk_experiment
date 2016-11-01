@@ -45,13 +45,7 @@ final class ThumbnailCellNode: ASCellNode {
     thumbnailNode.image = UIImage(named: "thumbnail.jpg")
     thumbnailNode.contentMode = .ScaleAspectFill
     thumbnailNode.style.preferredSize = thumbnailSize
-  }
-  
-  override func didLoad() {
-  }
-  
-  override init() {
-    super.init()
+
     addSubnode(textNode)
     addSubnode(thumbnailNode)
   }
