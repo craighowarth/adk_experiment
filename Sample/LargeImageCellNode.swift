@@ -16,15 +16,13 @@ final class LargeImageCellNode: ASCellNode {
   var creditNode = ASTextNode()
   var imageNode = ASImageNode()
   var footerNode = FooterNode()
-  var crop: Crop?
   var aspectRatio: CGFloat = 0.0
 
   convenience init(headline: String, summary: String, kicker: String, credit: String, crop: Crop) {
     self.init()
 
-    self.crop = crop
     aspectRatio = crop.size.height / crop.size.width
-
+    imageNode.image = UIImage(named: crop.imageFilename)
     imageNode.contentMode = .ScaleAspectFill
 
     if !credit.isEmpty {
@@ -65,12 +63,6 @@ final class LargeImageCellNode: ASCellNode {
     addSubnode(headlineNode)
     addSubnode(summaryNode)
     addSubnode(footerNode)
-  }
-  
-  override func didLoad() {
-    if let crop = self.crop {
-      imageNode.image = UIImage(named: crop.imageFilename)
-    }
   }
   
   override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
