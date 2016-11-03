@@ -74,10 +74,7 @@
       },
       "dependencies": {
         "PINRemoteImage/iOS": [
-          ">= 3.0.0-beta.4"
-        ],
-        "PINRemoteImage/PINCache": [
-
+          "= 3.0.0-beta.5"
         ],
         "AsyncDisplayKit/Core": [
 

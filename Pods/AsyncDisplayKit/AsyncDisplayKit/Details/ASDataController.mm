@@ -427,12 +427,16 @@ NSString * const ASDataControllerRowNodeKind = @"_ASDataControllerRowNodeKind";
     LOG(@"Edit Transaction - reloadData");
     
     // Remove everything that existed before the reload, now that we're ready to insert replacements
-    NSMutableArray *editingNodes = _editingNodes[ASDataControllerRowNodeKind];
-    NSUInteger editingNodesSectionCount = editingNodes.count;
-    
-    if (editingNodesSectionCount) {
-      NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, editingNodesSectionCount)];
-      [self _deleteNodesAtIndexPaths:ASIndexPathsForTwoDimensionalArray(editingNodes) withAnimationOptions:animationOptions];
+    NSUInteger oldSectionCount = [_editingNodes[ASDataControllerRowNodeKind] count];
+
+    // If we have old sections, we should delete them inside beginUpdates/endUpdates with inserting the new ones.
+    if (oldSectionCount) {
+      // -beginUpdates
+      [_mainSerialQueue performBlockOnMainThread:^{
+        [_delegate dataControllerBeginUpdates:self];
+      }];
+
+      NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndexesInRange:NSMakeRange(0, oldSectionCount)];
       [self _deleteSectionsAtIndexSet:indexSet withAnimationOptions:animationOptions];
     }
     
@@ -445,6 +449,13 @@ NSString * const ASDataControllerRowNodeKind = @"_ASDataControllerRowNodeKind";
     }
     [self _insertSections:sections atIndexSet:sectionIndexes withAnimationOptions:animationOptions];
 
+    if (oldSectionCount) {
+      // -endUpdates
+      [_mainSerialQueue performBlockOnMainThread:^{
+        [_delegate dataController:self endUpdatesAnimated:NO completion:nil];
+      }];
+    }
+    
     [self _batchLayoutAndInsertNodesFromContexts:newContexts withAnimationOptions:animationOptions];
 
     if (completion) {
@@ -476,8 +487,7 @@ NSString * const ASDataControllerRowNodeKind = @"_ASDataControllerRowNodeKind";
 {
   ASDisplayNodeAssertMainThread();
   
-  id<ASEnvironment> environment = [self.environmentDelegate dataControllerEnvironment];
-  ASEnvironmentTraitCollection environmentTraitCollection = environment.environmentTraitCollection;
+  __weak id<ASEnvironment> environment = [self.environmentDelegate dataControllerEnvironment];
   
   std::vector<NSInteger> counts = [self itemCountsFromDataSource];
   NSMutableArray<ASIndexedNodeContext *> *contexts = [NSMutableArray array];
@@ -493,7 +503,7 @@ NSString * const ASDataControllerRowNodeKind = @"_ASDataControllerRowNodeKind";
                                                                   indexPath:indexPath
                                                    supplementaryElementKind:nil
                                                             constrainedSize:constrainedSize
-                                                 environmentTraitCollection:environmentTraitCollection]];
+                                                                environment:environment]];
       }
     }
   }];
@@ -624,9 +634,6 @@ NSString * const ASDataControllerRowNodeKind = @"_ASDataControllerRowNodeKind";
 
     // remove elements
     LOG(@"Edit Transaction - deleteSections: %@", sections);
-    NSArray *indexPaths = ASIndexPathsForMultidimensionalArrayAtIndexSet(_editingNodes[ASDataControllerRowNodeKind], sections);
-    
-    [self _deleteNodesAtIndexPaths:indexPaths withAnimationOptions:animationOptions];
     [self _deleteSectionsAtIndexSet:sections withAnimationOptions:animationOptions];
   });
 }
@@ -743,8 +750,7 @@ NSString * const ASDataControllerRowNodeKind = @"_ASDataControllerRowNodeKind";
   NSArray *sortedIndexPaths = [indexPaths sortedArrayUsingSelector:@selector(compare:)];
   NSMutableArray<ASIndexedNodeContext *> *contexts = [[NSMutableArray alloc] initWithCapacity:indexPaths.count];
 
-  id<ASEnvironment> environment = [self.environmentDelegate dataControllerEnvironment];
-  ASEnvironmentTraitCollection environmentTraitCollection = environment.environmentTraitCollection;
+  __weak id<ASEnvironment> environment = [self.environmentDelegate dataControllerEnvironment];
   
   for (NSIndexPath *indexPath in sortedIndexPaths) {
     ASCellNodeBlock nodeBlock = [_dataSource dataController:self nodeBlockAtIndexPath:indexPath];
@@ -753,7 +759,7 @@ NSString * const ASDataControllerRowNodeKind = @"_ASDataControllerRowNodeKind";
                                                               indexPath:indexPath
                                                supplementaryElementKind:nil
                                                         constrainedSize:constrainedSize
-                                             environmentTraitCollection:environmentTraitCollection]];
+                                                            environment:environment]];
   }
 
   ASInsertElementsIntoMultidimensionalArrayAtIndexPaths(_nodeContexts[ASDataControllerRowNodeKind], sortedIndexPaths, contexts);

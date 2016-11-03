@@ -1,6 +1,4 @@
-#ifdef __OBJC__
 #import <UIKit/UIKit.h>
-#endif
 
 #import "_AS-objc-internal.h"
 #import "ASDealloc2MainObject.h"
@@ -68,6 +66,7 @@
 #import "ASLayoutRangeType.h"
 #import "ASMainSerialQueue.h"
 #import "ASMutableAttributedStringBuilder.h"
+#import "ASObjectDescriptionHelpers.h"
 #import "ASPhotosFrameworkImageRequest.h"
 #import "ASPINRemoteImageDownloader.h"
 #import "ASRangeController.h"
@@ -104,7 +103,6 @@
 #import "ASLayoutElementExtensibility.h"
 #import "ASLayoutElementPrivate.h"
 #import "ASLayoutElementStylePrivate.h"
-#import "ASLayoutPrivate.h"
 #import "ASLayoutSpec+Subclasses.h"
 #import "ASLayoutSpec.h"
 #import "ASOverlayLayoutSpec.h"
