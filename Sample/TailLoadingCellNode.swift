@@ -55,7 +55,7 @@ final class SpinnerNode: ASDisplayNode {
   override init() {
     super.init(viewBlock: { UIActivityIndicatorView(activityIndicatorStyle: .Gray) }, didLoadBlock: nil)
     
-    self.style.minHeight = ASDimensionMakeWithPoints(44.0)
+    self.style.preferredSize = CGSize(width: 44.0, height: 44.0)
   }
 
   override func didLoad() {
