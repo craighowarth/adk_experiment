@@ -18,7 +18,7 @@
 import UIKit
 import AsyncDisplayKit
 
-final class ViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource, ASTableDelegate {
+final class TextureViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource, ASTableDelegate {
   struct State {
     var itemCount: Int
     var fetchingMore: Bool
@@ -50,8 +50,8 @@ final class ViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource
   // MARK: ASTableView data source and delegate.
 
   func tableView(_ tableView: ASTableView, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-    let headline = ViewController.words(min: 2,8)
-    let summary = ViewController.words(min: 20,40)
+    let headline = Self.words(min: 2,8)
+    let summary = Self.words(min: 20,40)
     let node: ASCellNode
     let itemNumber = indexPath.row + 1
     if itemNumber % 5 == 0 {

@@ -12,7 +12,7 @@ import XCTest
 class SamplePerformanceMetricTests: XCTestCase {
 
   func testTexturePerformance() throws {
-    let vc = ViewController(cellCount: 1000)
+    let vc = TextureViewController(cellCount: 1000)
     measureMetrics([.wallClockTime], automaticallyStartMeasuring: false, for: {
       startMeasuring()
       vc.view.layoutIfNeeded()
