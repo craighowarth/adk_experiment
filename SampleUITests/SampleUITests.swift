@@ -16,18 +16,14 @@ class SampleUITests: XCTestCase {
     app.launch()
     let table = app.tables.firstMatch
 
-    if #available(iOS 14.0, *) {
-      measure(metrics: [XCTOSSignpostMetric.scrollDecelerationMetric]) {
-        table.swipeUp(velocity: .fast)
-      }
-    }
-  }
+    let measureOptions = XCTMeasureOptions()
+    measureOptions.invocationOptions = [.manuallyStop]
 
-  func testLaunchPerformance() throws {
-    if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-      // This measures how long it takes to launch your application.
-      measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-        XCUIApplication().launch()
+    if #available(iOS 14.0, *) {
+      measure(metrics: [XCTOSSignpostMetric.scrollDecelerationMetric], options: measureOptions) {
+        table.swipeUp(velocity: .fast)
+        stopMeasuring()
+        table.swipeDown(velocity: .fast)
       }
     }
   }
