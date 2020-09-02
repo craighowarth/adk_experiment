@@ -54,7 +54,7 @@ final class SpinnerNode: ASDisplayNode {
 
   override init() {
     super.init()
-    self.setViewBlock({ UIActivityIndicatorView(style: .gray) })
+    self.setViewBlock({ UIActivityIndicatorView(style: .medium) })
     self.style.preferredSize = CGSize(width: 44.0, height: 44.0)
   }
 
