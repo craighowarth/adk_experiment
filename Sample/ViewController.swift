@@ -119,31 +119,32 @@ final class ViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource
 
   private func renderDiff(oldState: State) {
     let tableView = tableNode
-    tableView.performBatchUpdates({
-      // Add or remove items
-        let rowCountChange = state.itemCount - oldState.itemCount
-        if rowCountChange > 0 {
-          let indexPaths = (oldState.itemCount..<state.itemCount).map { index in
-            IndexPath(row: index, section: 0)
-          }
-          tableView.insertRows(at: indexPaths, with: .none)
-        } else if rowCountChange < 0 {
-          assertionFailure("Deleting rows is not implemented. YAGNI.")
-        }
 
-        // Add or remove spinner.
-        if state.fetchingMore != oldState.fetchingMore {
-          if state.fetchingMore {
-            // Add spinner.
-            let spinnerIndexPath = IndexPath(row: state.itemCount, section: 0)
-            tableView.insertRows(at: [spinnerIndexPath], with: .none)
-          } else {
-            // Remove spinner.
-            let spinnerIndexPath = IndexPath(row: oldState.itemCount, section: 0)
-            tableView.insertRows(at: [spinnerIndexPath], with: .none)
-          }
+    tableView.performBatch(animated: false, updates: {
+      // Add or remove items
+      let rowCountChange = state.itemCount - oldState.itemCount
+      if rowCountChange > 0 {
+        let indexPaths = (oldState.itemCount..<state.itemCount).map { index in
+          IndexPath(row: index, section: 0)
         }
-      }, completion: nil)
+        tableView.insertRows(at: indexPaths, with: .none)
+      } else if rowCountChange < 0 {
+        assertionFailure("Deleting rows is not implemented. YAGNI.")
+      }
+
+      // Add or remove spinner.
+      if state.fetchingMore != oldState.fetchingMore {
+        if state.fetchingMore {
+          // Add spinner.
+          let spinnerIndexPath = IndexPath(row: state.itemCount, section: 0)
+          tableView.insertRows(at: [spinnerIndexPath], with: .none)
+        } else {
+          // Remove spinner.
+          let spinnerIndexPath = IndexPath(row: oldState.itemCount, section: 0)
+          tableView.deleteRows(at: [spinnerIndexPath], with: .none)
+        }
+      }
+    }, completion: nil)
   }
 
   /// (Pretend) fetches some new items and calls the
