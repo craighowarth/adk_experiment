@@ -1,41 +1,44 @@
 PODS:
-  - AsyncDisplayKit (2.0-beta.1):
-    - AsyncDisplayKit/PINRemoteImage (= 2.0-beta.1)
-  - AsyncDisplayKit/ASDealloc2MainObject (2.0-beta.1)
-  - AsyncDisplayKit/Core (2.0-beta.1):
-    - AsyncDisplayKit/ASDealloc2MainObject
-  - AsyncDisplayKit/PINRemoteImage (2.0-beta.1):
-    - AsyncDisplayKit/Core
-    - PINRemoteImage/iOS (= 3.0.0-beta.5)
-  - PINCache (3.0.1-beta)
-  - PINRemoteImage/Core (3.0.0-beta.5):
-    - PINCache (= 3.0.1-beta)
-  - PINRemoteImage/iOS (3.0.0-beta.5):
+  - PINCache (3.0.1-beta.8):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.8)
+    - PINCache/Core (= 3.0.1-beta.8)
+  - PINCache/Arc-exception-safe (3.0.1-beta.8):
+    - PINCache/Core
+  - PINCache/Core (3.0.1-beta.8):
+    - PINOperation (~> 1.1.1)
+  - PINOperation (1.1.2)
+  - PINRemoteImage/Core (3.0.0):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.0):
     - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.0):
+    - PINCache (= 3.0.1-beta.8)
+    - PINRemoteImage/Core
+  - Texture/Core (3.0.0)
+  - Texture/PINRemoteImage (3.0.0):
+    - PINRemoteImage/iOS (~> 3.0.0)
+    - PINRemoteImage/PINCache
+    - Texture/Core
+  - Texture/Video (3.0.0):
+    - Texture/Core
 
 DEPENDENCIES:
-  - AsyncDisplayKit (from `https://github.com/facebook/AsyncDisplayKit.git`, branch `master`)
+  - Texture/PINRemoteImage (~> 3.0)
+  - Texture/Video (~> 3.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - PINCache
+    - PINOperation
     - PINRemoteImage
-
-EXTERNAL SOURCES:
-  AsyncDisplayKit:
-    :branch: master
-    :git: https://github.com/facebook/AsyncDisplayKit.git
-
-CHECKOUT OPTIONS:
-  AsyncDisplayKit:
-    :commit: 62a0296148633c12575f051c6bebfcd0ea9b88d3
-    :git: https://github.com/facebook/AsyncDisplayKit.git
+    - Texture
 
 SPEC CHECKSUMS:
-  AsyncDisplayKit: 4ef1ca0fac766193f4ccdea5b01e42b82b675683
-  PINCache: 6911fe422a633e18b3d3ddf2bd4f0e55e36e2892
-  PINRemoteImage: 20ca800843e5fb326bc33fa6eb528c3b861d8bd6
+  PINCache: 534fd41d358d828dfdf227a0d327f3673a65e20b
+  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
+  PINRemoteImage: e2b89e19fb6e77ffc099f9d9f3b3fe1745e3f9f9
+  Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
 
-PODFILE CHECKSUM: bc361661cf797259d17360ed246c4d88439f940e
+PODFILE CHECKSUM: 7c7ee0d16b6f9ebd76dd399c23c7b4afde26cbab
 
 COCOAPODS: 1.9.3
