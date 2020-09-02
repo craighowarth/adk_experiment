@@ -20,15 +20,15 @@ final class HeadlineSummaryCellNode: ASCellNode {
     headlineNode.attributedText = NSAttributedString(
       string: headline,
       attributes: [
-        NSFontAttributeName: UIFont.boldSystemFontOfSize(18),
-        NSForegroundColorAttributeName: UIColor.blackColor()
+        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
+        NSAttributedString.Key.foregroundColor: UIColor.black
       ])
 
     summaryNode.attributedText = NSAttributedString(
       string: summary,
       attributes: [
-        NSFontAttributeName: UIFont.systemFontOfSize(14),
-        NSForegroundColorAttributeName: UIColor.darkGrayColor()
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+        NSAttributedString.Key.foregroundColor: UIColor.darkGray
       ])
 
     addSubnode(headlineNode)
@@ -36,12 +36,12 @@ final class HeadlineSummaryCellNode: ASCellNode {
     addSubnode(footerNode)
   }
 
-  override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    let headlineSummaryStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    let headlineSummaryStackSpec = ASStackLayoutSpec.vertical()
     headlineSummaryStackSpec.children = [ headlineNode, summaryNode ]
     headlineSummaryStackSpec.spacing = 16.0
 
-    let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    let verticalStackSpec = ASStackLayoutSpec.vertical()
     verticalStackSpec.children = [ headlineSummaryStackSpec, footerNode ]
     verticalStackSpec.spacing = 10.0
 
