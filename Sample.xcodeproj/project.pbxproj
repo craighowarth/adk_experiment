@@ -25,7 +25,7 @@
 		9436AAD31DB9A0D80029B9B2 /* coltrane.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9436AAD21DB9A0D80029B9B2 /* coltrane.jpg */; };
 		9436AAD51DBA78170029B9B2 /* Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436AAD41DBA78170029B9B2 /* Crop.swift */; };
 		94752ABB1DC63B8C00B1B781 /* WebCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */; };
-		D59BF7E3250000250058C51A /* SamplePerformanceMetricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59BF7E2250000250058C51A /* SamplePerformanceMetricTests.swift */; };
+		D58F43742500385F000101A2 /* SamplePerformanceMetricTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59BF7E2250000250058C51A /* SamplePerformanceMetricTests.swift */; };
 		D59BF7F1250001410058C51A /* SampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59BF7F0250001410058C51A /* SampleUITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +71,7 @@
 		9436AAD41DBA78170029B9B2 /* Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crop.swift; sourceTree = "<group>"; };
 		94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCellNode.swift; sourceTree = "<group>"; };
 		9B402DAAE8C6A8B9BE1A506B /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
+		D58F4373250035F1000101A2 /* SampleUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SampleUITests.xctestplan; sourceTree = "<group>"; };
 		D59BF7E0250000250058C51A /* SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59BF7E2250000250058C51A /* SamplePerformanceMetricTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePerformanceMetricTests.swift; sourceTree = "<group>"; };
 		D59BF7E4250000250058C51A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -194,6 +195,7 @@
 		D59BF7EF250001410058C51A /* SampleUITests */ = {
 			isa = PBXGroup;
 			children = (
+				D58F4373250035F1000101A2 /* SampleUITests.xctestplan */,
 				D59BF7F0250001410058C51A /* SampleUITests.swift */,
 				D59BF7F2250001410058C51A /* Info.plist */,
 			);
@@ -398,7 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D59BF7E3250000250058C51A /* SamplePerformanceMetricTests.swift in Sources */,
+				D58F43742500385F000101A2 /* SamplePerformanceMetricTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
