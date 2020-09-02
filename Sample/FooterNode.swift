@@ -17,27 +17,27 @@ final class FooterNode: ASDisplayNode {
   override init() {
     super.init()
 
-    let formatter = NSDateFormatter()
+    let formatter = DateFormatter()
     formatter.dateFormat = "MMM d"
-    let displayDate = formatter.stringFromDate(NSDate())
+    let displayDate = formatter.string(from: Date())
 
     dateNode.attributedText = NSAttributedString(
       string: displayDate,
       attributes: [
-        NSFontAttributeName: UIFont.systemFontOfSize(12),
-        NSForegroundColorAttributeName: UIColor.grayColor()
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+        NSAttributedString.Key.foregroundColor: UIColor.gray
       ])
 
-    shareButtonNode.setImage(UIImage(named: "NYTShareIcon"), forState: ASControlState.Normal)
-    saveButtonNode.setImage(UIImage(named: "NYTSaveIcon"), forState: ASControlState.Normal)
+    shareButtonNode.setImage(UIImage(named: "NYTShareIcon"), for: .normal)
+    saveButtonNode.setImage(UIImage(named: "NYTSaveIcon"), for: .normal)
 
     addSubnode(dateNode)
     addSubnode(shareButtonNode)
     addSubnode(saveButtonNode)
   }
 
-  override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    let buttonGroupSpec = ASStackLayoutSpec.horizontalStackLayoutSpec()
+  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    let buttonGroupSpec = ASStackLayoutSpec.horizontal()
     buttonGroupSpec.children = [ saveButtonNode, shareButtonNode ]
     buttonGroupSpec.spacing = 5.0
 
@@ -45,10 +45,10 @@ final class FooterNode: ASDisplayNode {
     spacerSpec.style.flexGrow = 1.0
     spacerSpec.style.flexShrink = 1.0
 
-    let layoutSpec = ASStackLayoutSpec.horizontalStackLayoutSpec()
+    let layoutSpec = ASStackLayoutSpec.horizontal()
     layoutSpec.children = [dateNode, spacerSpec, buttonGroupSpec]
-    layoutSpec.alignItems = ASStackLayoutAlignItems.Center
-    layoutSpec.justifyContent = ASStackLayoutJustifyContent.Start
+    layoutSpec.alignItems = ASStackLayoutAlignItems.center
+    layoutSpec.justifyContent = ASStackLayoutJustifyContent.start
 
     return layoutSpec
   }
