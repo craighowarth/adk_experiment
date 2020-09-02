@@ -21,30 +21,30 @@ final class ThumbnailCellNode: ASCellNode {
     let headlineAttributedString = NSAttributedString(
       string: "\(headline)\n",
       attributes: [
-        NSFontAttributeName: UIFont.boldSystemFontOfSize(18),
-        NSForegroundColorAttributeName: UIColor.blackColor()
+        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
+        NSAttributedString.Key.foregroundColor: UIColor.black
       ])
     let spacerAttributedString = NSAttributedString(
       string: "\n",
       attributes: [
-        NSFontAttributeName: UIFont.systemFontOfSize(10)
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)
       ])
     let summaryAttributedString = NSAttributedString(
       string: summary,
       attributes: [
-        NSFontAttributeName: UIFont.systemFontOfSize(14),
-        NSForegroundColorAttributeName: UIColor.darkGrayColor()
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+        NSAttributedString.Key.foregroundColor: UIColor.darkGray
       ])
     
     let attributedString = NSMutableAttributedString()
-    attributedString.appendAttributedString(headlineAttributedString)
-    attributedString.appendAttributedString(spacerAttributedString)
-    attributedString.appendAttributedString(summaryAttributedString)
+    attributedString.append(headlineAttributedString)
+    attributedString.append(spacerAttributedString)
+    attributedString.append(summaryAttributedString)
     
     textNode.attributedText = attributedString
     
     thumbnailNode.image = UIImage(named: "thumbnail.jpg")
-    thumbnailNode.contentMode = .ScaleAspectFill
+    thumbnailNode.contentMode = .scaleAspectFill
     thumbnailNode.style.preferredSize = thumbnailSize
 
     addSubnode(textNode)
@@ -52,8 +52,8 @@ final class ThumbnailCellNode: ASCellNode {
     addSubnode(footerNode)
   }
   
-  override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
-    let thumbnailSpec = ASRelativeLayoutSpec(horizontalPosition: .End, verticalPosition: .Start, sizingOption: .Default, child: thumbnailNode)
+  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    let thumbnailSpec = ASRelativeLayoutSpec(horizontalPosition: .end, verticalPosition: .start, sizingOption: [], child: thumbnailNode)
 
     let nodeMargin: CGFloat = 10.0
     let insetWidth = constrainedSize.max.width - (nodeMargin * 2.0)
@@ -66,7 +66,7 @@ final class ThumbnailCellNode: ASCellNode {
 
     let overlaySpec = ASOverlayLayoutSpec(child: textNode, overlay: thumbnailSpec)
 
-    let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    let verticalStackSpec = ASStackLayoutSpec.vertical()
     verticalStackSpec.children = [ overlaySpec, footerNode ]
     verticalStackSpec.spacing = 10.0
 
