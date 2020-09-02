@@ -23,14 +23,14 @@ final class LargeImageCellNode: ASCellNode {
 
     aspectRatio = crop.size.height / crop.size.width
     imageNode.image = UIImage(named: crop.imageFilename)
-    imageNode.contentMode = .ScaleAspectFill
+    imageNode.contentMode = .scaleAspectFill
 
     if !credit.isEmpty {
       creditNode.attributedText = NSAttributedString(
         string: credit,
         attributes: [
-          NSFontAttributeName: UIFont.systemFontOfSize(9),
-          NSForegroundColorAttributeName: UIColor.lightGrayColor()
+          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9),
+          NSAttributedString.Key.foregroundColor: UIColor.lightGray
         ])
     }
 
@@ -38,23 +38,23 @@ final class LargeImageCellNode: ASCellNode {
       kickerNode.attributedText = NSAttributedString(
         string: kicker,
         attributes: [
-          NSFontAttributeName: UIFont.systemFontOfSize(12),
-          NSForegroundColorAttributeName: UIColor.blackColor()
+          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+          NSAttributedString.Key.foregroundColor: UIColor.black
         ])
     }
 
     headlineNode.attributedText = NSAttributedString(
       string: headline,
       attributes: [
-        NSFontAttributeName: UIFont.boldSystemFontOfSize(18),
-        NSForegroundColorAttributeName: UIColor.blackColor()
+        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
+        NSAttributedString.Key.foregroundColor: UIColor.black
       ])
     
     summaryNode.attributedText = NSAttributedString(
       string: summary,
       attributes: [
-        NSFontAttributeName: UIFont.systemFontOfSize(14),
-        NSForegroundColorAttributeName: UIColor.darkGrayColor()
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+        NSAttributedString.Key.foregroundColor: UIColor.darkGray
       ])
 
     addSubnode(imageNode)
@@ -65,10 +65,10 @@ final class LargeImageCellNode: ASCellNode {
     addSubnode(footerNode)
   }
   
-  override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
     let imageSpec = ASRatioLayoutSpec(ratio: aspectRatio, child: imageNode)
     
-    let imageStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    let imageStackSpec = ASStackLayoutSpec.vertical()
     if creditNode.attributedText != nil {
       imageStackSpec.children = [ imageSpec, creditNode ]
     } else {
@@ -76,7 +76,7 @@ final class LargeImageCellNode: ASCellNode {
     }
     imageStackSpec.spacing = 2.0
 
-    let kickerHeadlineStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    let kickerHeadlineStackSpec = ASStackLayoutSpec.vertical()
     if kickerNode.attributedText != nil {
       kickerHeadlineStackSpec.children = [ kickerNode, headlineNode ]
     } else {
@@ -84,7 +84,7 @@ final class LargeImageCellNode: ASCellNode {
     }
     kickerHeadlineStackSpec.spacing = 2.0
 
-    let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    let verticalStackSpec = ASStackLayoutSpec.vertical()
     verticalStackSpec.children = [ imageStackSpec, kickerHeadlineStackSpec, summaryNode, footerNode ]
     verticalStackSpec.spacing = 10.0
     
