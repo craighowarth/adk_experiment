@@ -1,5 +1,5 @@
 //
-//  SamplePerformanceMetricTests.swift
+//  LayoutPerformanceTimeTests.swift
 //  SampleTests
 //
 //  Created by Jonathan Lazar on 9/2/20.
@@ -9,7 +9,7 @@
 @testable import Sample
 import XCTest
 
-class SamplePerformanceMetricTests: XCTestCase {
+class LayoutPerformanceTimeTests: XCTestCase {
 
   func testTexturePerformance() throws {
     let vc = TextureViewController(cellCount: 1000)

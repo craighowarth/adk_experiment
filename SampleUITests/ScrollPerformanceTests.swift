@@ -1,5 +1,5 @@
 //
-//  SampleUITests.swift
+//  ScrollPerformanceTests.swift
 //  SampleUITests
 //
 //  Created by Jonathan Lazar on 9/2/20.
@@ -8,10 +8,9 @@
 
 import XCTest
 
-class SampleUITests: XCTestCase {
+class ScrollPerformanceTests: XCTestCase {
 
-  func testTextureScrollingPerformance() throws {
-    // UI tests must launch the application that they test.
+  func testTextureScrollPerformance() throws {
     let app = XCUIApplication()
     app.launch()
     let table = app.tables.firstMatch
