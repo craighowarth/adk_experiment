@@ -18,7 +18,7 @@
 import UIKit
 import AsyncDisplayKit
 
-final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate {
+final class ViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource, ASTableDelegate {
   var showWebViews = false
 
   struct State {
@@ -38,7 +38,7 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
 
   private(set) var state: State = .empty
 
-  init() {
+  override init() {
     super.init(node: ASTableNode())
     tableNode.delegate = self
     tableNode.dataSource = self
@@ -50,7 +50,7 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
 
   // MARK: ASTableView data source and delegate.
 
-  func tableView(tableView: ASTableView, nodeForRowAtIndexPath indexPath: NSIndexPath) -> ASCellNode {
+  func tableView(_ tableView: ASTableView, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
     // Should read the row count directly from table view but
     // https://github.com/facebook/AsyncDisplayKit/issues/1159
     let rowCount = self.tableView(tableView, numberOfRowsInSection: 0)
@@ -59,8 +59,8 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
       return TailLoadingCellNode()
     }
 
-    let headline = ViewController.words(2,8)
-    let summary = ViewController.words(20,40)
+    let headline = ViewController.words(min: 2,8)
+    let summary = ViewController.words(min: 20,40)
     let node: ASCellNode
     let itemNumber = indexPath.row + 1
     if itemNumber % 5 == 0 {
@@ -77,7 +77,7 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
       node = HeadlineSummaryCellNode(headline: headline, summary: summary)
     }
 
-    node.selectionStyle = UITableViewCellSelectionStyle.None
+    node.selectionStyle = UITableViewCell.SelectionStyle.none
 
     return node
   }
@@ -86,7 +86,7 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
     return 1
   }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     var count = state.itemCount
     if state.fetchingMore {
       count += 1
@@ -94,64 +94,63 @@ final class ViewController: ASViewController, ASTableDataSource, ASTableDelegate
     return count
   }
 
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     showWebViews = !showWebViews
     tableView.reloadData()
   }
 
-  func tableView(tableView: ASTableView, willBeginBatchFetchWithContext context: ASBatchContext) {
+  func tableView(_ tableView: ASTableView, willBeginBatchFetchWith context: ASBatchContext) {
     /// This call will come in on a background thread. Switch to main
     /// to add our spinner, then fire off our fetch.
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       let oldState = self.state
-      self.state = ViewController.handleAction(.BeginBatchFetch, fromState: oldState)
-      self.renderDiff(oldState)
+      self.state = ViewController.handleAction(action: .BeginBatchFetch, fromState: oldState)
+      self.renderDiff(oldState: oldState)
     }
 
-    ViewController.fetchDataWithCompletion { resultCount in
+    ViewController.fetchData { resultCount in
       let action = Action.EndBatchFetch(resultCount: resultCount)
       let oldState = self.state
-      self.state = ViewController.handleAction(action, fromState: oldState)
-      self.renderDiff(oldState)
+      self.state = ViewController.handleAction(action: action, fromState: oldState)
+      self.renderDiff(oldState: oldState)
       context.completeBatchFetching(true)
     }
   }
 
   private func renderDiff(oldState: State) {
-    let tableView = tableNode.view
-    tableView.beginUpdates()
+    let tableView = tableNode
+    tableView.performBatchUpdates({
+      // Add or remove items
+        let rowCountChange = state.itemCount - oldState.itemCount
+        if rowCountChange > 0 {
+          let indexPaths = (oldState.itemCount..<state.itemCount).map { index in
+            IndexPath(row: index, section: 0)
+          }
+          tableView.insertRows(at: indexPaths, with: .none)
+        } else if rowCountChange < 0 {
+          assertionFailure("Deleting rows is not implemented. YAGNI.")
+        }
 
-    // Add or remove items
-    let rowCountChange = state.itemCount - oldState.itemCount
-    if rowCountChange > 0 {
-      let indexPaths = (oldState.itemCount..<state.itemCount).map { index in
-        NSIndexPath(forRow: index, inSection: 0)
-      }
-      tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .None)
-    } else if rowCountChange < 0 {
-      assertionFailure("Deleting rows is not implemented. YAGNI.")
-    }
-
-    // Add or remove spinner.
-    if state.fetchingMore != oldState.fetchingMore {
-      if state.fetchingMore {
-        // Add spinner.
-        let spinnerIndexPath = NSIndexPath(forRow: state.itemCount, inSection: 0)
-        tableView.insertRowsAtIndexPaths([ spinnerIndexPath ], withRowAnimation: .None)
-      } else {
-        // Remove spinner.
-        let spinnerIndexPath = NSIndexPath(forRow: oldState.itemCount, inSection: 0)
-        tableView.deleteRowsAtIndexPaths([ spinnerIndexPath ], withRowAnimation: .None)
-      }
-    }
-    tableView.endUpdatesAnimated(false, completion: nil)
+        // Add or remove spinner.
+        if state.fetchingMore != oldState.fetchingMore {
+          if state.fetchingMore {
+            // Add spinner.
+            let spinnerIndexPath = IndexPath(row: state.itemCount, section: 0)
+            tableView.insertRows(at: [spinnerIndexPath], with: .none)
+          } else {
+            // Remove spinner.
+            let spinnerIndexPath = IndexPath(row: oldState.itemCount, section: 0)
+            tableView.insertRows(at: [spinnerIndexPath], with: .none)
+          }
+        }
+      }, completion: nil)
   }
 
   /// (Pretend) fetches some new items and calls the
   /// completion handler on the main thread.
-  private static func fetchDataWithCompletion(completion: (Int) -> Void) {
-    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(NSTimeInterval(NSEC_PER_SEC) * 1.0))
-    dispatch_after(time, dispatch_get_main_queue()) {
+  private static func fetchData(completion: @escaping (Int) -> Void) {
+    let time = DispatchTime.now() + 1
+    DispatchQueue.main.asyncAfter(deadline: time) {
       let resultCount = Int(arc4random_uniform(20))
       completion(resultCount)
     }

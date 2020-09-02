@@ -23,11 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    ASRangeController.setShouldShowRangeDebugOverlay(true)
-    RRFPSBar.sharedInstance().hidden = false
-    let window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    window.backgroundColor = UIColor.whiteColor()
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    ASDisplayNode.shouldShowRangeDebugOverlay = true
+    RRFPSBar.sharedInstance().isHidden = false
+    let window = UIWindow(frame: UIScreen.main.bounds)
+    window.backgroundColor = UIColor.white
     window.rootViewController = UINavigationController(rootViewController: ViewController());
     window.makeKeyAndVisible()
     self.window = window
