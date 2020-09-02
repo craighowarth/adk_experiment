@@ -16,6 +16,11 @@ PODS:
 DEPENDENCIES:
   - AsyncDisplayKit (from `https://github.com/facebook/AsyncDisplayKit.git`, branch `master`)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - PINCache
+    - PINRemoteImage
+
 EXTERNAL SOURCES:
   AsyncDisplayKit:
     :branch: master
@@ -33,4 +38,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: bc361661cf797259d17360ed246c4d88439f940e
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.9.3
