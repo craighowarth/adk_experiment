@@ -20,7 +20,7 @@ final class ScrollCellNode: ASCellNode, ASCollectionDelegate, ASCollectionDataSo
     self.numberOfItems = numberOfItems
 
     let flowLayout = UICollectionViewFlowLayout()
-    flowLayout.scrollDirection = UICollectionViewScrollDirection.Horizontal
+    flowLayout.scrollDirection = .horizontal
     flowLayout.itemSize = elementSize
     flowLayout.minimumInteritemSpacing = 10
 
@@ -31,7 +31,7 @@ final class ScrollCellNode: ASCellNode, ASCollectionDelegate, ASCollectionDataSo
     addSubnode(collectionNode)
   }
 
-  override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
     let nodeMargin: CGFloat = 10.0
 
     let collectionNodeSize = CGSize(width: constrainedSize.max.width, height: elementSize.height)
@@ -42,11 +42,11 @@ final class ScrollCellNode: ASCellNode, ASCollectionDelegate, ASCollectionDataSo
 
   }
 
-  func collectionNode(collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
+  func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
     return numberOfItems
   }
 
-  func collectionNode(collectionNode: ASCollectionNode, nodeBlockForItemAtIndexPath indexPath: NSIndexPath) -> ASCellNodeBlock {
+  func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
     let elementSize = self.elementSize
     return { () -> ASCellNode in
       let crop = Crop(imageFilename: "miles.png", size: CGSize(width: 560, height: 560))
