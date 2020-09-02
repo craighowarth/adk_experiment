@@ -23,14 +23,14 @@ final class WebCellNode: ASCellNode {
     self.height = height
     
     let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.alignment = .Center
+    paragraphStyle.alignment = .center
 
     disclaimerNode.attributedText = NSAttributedString(
       string: "ADVERTISEMENT",
       attributes: [
-        NSFontAttributeName: UIFont.systemFontOfSize(9.0),
-        NSParagraphStyleAttributeName: paragraphStyle,
-        NSForegroundColorAttributeName: UIColor.lightGrayColor()
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9.0),
+        NSAttributedString.Key.paragraphStyle: paragraphStyle,
+        NSAttributedString.Key.foregroundColor: UIColor.lightGray
       ])
     
     addSubnode(disclaimerNode)
@@ -40,9 +40,9 @@ final class WebCellNode: ASCellNode {
   override func didLoad() {
     super.didLoad()
     webView = WKWebView(frame: webNode.bounds)
-    webView?.scrollView.scrollEnabled = false
+    webView?.scrollView.isScrollEnabled = false
     if let webView = webView {
-      webView.loadRequest(NSURLRequest(URL: url))
+      webView.load(NSURLRequest(url: url as URL) as URLRequest)
       webNode.view.addSubview(webView)
     }
   }
@@ -52,13 +52,13 @@ final class WebCellNode: ASCellNode {
     webView?.frame = webNode.bounds
   }
   
-  override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+  override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
     let nodeMargin: CGFloat = 10.0
     let insetWidth = constrainedSize.max.width - (nodeMargin * 2.0)
     webNode.bounds = CGRect(x: 0, y: 0, width: insetWidth, height: height)
     webNode.style.preferredSize = CGSize(width: insetWidth, height: height)
 
-    let verticalStackSpec = ASStackLayoutSpec.verticalStackLayoutSpec()
+    let verticalStackSpec = ASStackLayoutSpec.vertical()
     verticalStackSpec.children = [ disclaimerNode, webNode ]
     verticalStackSpec.spacing = 10.0
     
