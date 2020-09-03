@@ -25,6 +25,8 @@
 		9436AAD31DB9A0D80029B9B2 /* coltrane.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9436AAD21DB9A0D80029B9B2 /* coltrane.jpg */; };
 		9436AAD51DBA78170029B9B2 /* Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9436AAD41DBA78170029B9B2 /* Crop.swift */; };
 		94752ABB1DC63B8C00B1B781 /* WebCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */; };
+		D53BDD6F25013B73001FB387 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53BDD6E25013B73001FB387 /* CollectionViewController.swift */; };
+		D53BDE7D25015FB5001FB387 /* ContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53BDE7C25015FB5001FB387 /* ContentGenerator.swift */; };
 		D58F43742500385F000101A2 /* LayoutPerformanceTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59BF7E2250000250058C51A /* LayoutPerformanceTimeTests.swift */; };
 		D59BF7F1250001410058C51A /* ScrollPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59BF7F0250001410058C51A /* ScrollPerformanceTests.swift */; };
 /* End PBXBuildFile section */
@@ -71,6 +73,8 @@
 		9436AAD41DBA78170029B9B2 /* Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crop.swift; sourceTree = "<group>"; };
 		94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebCellNode.swift; sourceTree = "<group>"; };
 		9B402DAAE8C6A8B9BE1A506B /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
+		D53BDD6E25013B73001FB387 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		D53BDE7C25015FB5001FB387 /* ContentGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentGenerator.swift; sourceTree = "<group>"; };
 		D58F4373250035F1000101A2 /* SampleUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SampleUITests.xctestplan; sourceTree = "<group>"; };
 		D59BF7E0250000250058C51A /* SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59BF7E2250000250058C51A /* LayoutPerformanceTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPerformanceTimeTests.swift; sourceTree = "<group>"; };
@@ -134,19 +138,15 @@
 		050E7C7019D22E19004363C2 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				D53BDD6D25013B65001FB387 /* AutoLayout */,
+				D53BDD6C25013B51001FB387 /* Texture */,
 				050E7C7319D22E19004363C2 /* AppDelegate.swift */,
-				050E7C7519D22E19004363C2 /* TextureViewController.swift */,
-				9436AACA1DB81B6C0029B9B2 /* HeadlineSummaryCellNode.swift */,
-				9436AACC1DB833A00029B9B2 /* ThumbnailCellNode.swift */,
-				9436AAD01DB9A0290029B9B2 /* LargeImageCellNode.swift */,
-				94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */,
-				2AA47F111DC8E60F00821444 /* ScrollCellNode.swift */,
-				2A3038B51DC90F6900228931 /* FooterNode.swift */,
 				9436AAD41DBA78170029B9B2 /* Crop.swift */,
 				2A3038B21DC8F7DD00228931 /* RRFPSBar.h */,
 				2A3038B31DC8F7DD00228931 /* RRFPSBar.m */,
 				050E7C7119D22E19004363C2 /* Supporting Files */,
 				2A3038B11DC8F7DC00228931 /* Sample-Bridging-Header.h */,
+				D53BDE7C25015FB5001FB387 /* ContentGenerator.swift */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -181,6 +181,28 @@
 				08B9AAEC0A03243C3516AA96 /* Pods-Sample.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D53BDD6C25013B51001FB387 /* Texture */ = {
+			isa = PBXGroup;
+			children = (
+				050E7C7519D22E19004363C2 /* TextureViewController.swift */,
+				9436AACA1DB81B6C0029B9B2 /* HeadlineSummaryCellNode.swift */,
+				9436AACC1DB833A00029B9B2 /* ThumbnailCellNode.swift */,
+				9436AAD01DB9A0290029B9B2 /* LargeImageCellNode.swift */,
+				94752ABA1DC63B8C00B1B781 /* WebCellNode.swift */,
+				2AA47F111DC8E60F00821444 /* ScrollCellNode.swift */,
+				2A3038B51DC90F6900228931 /* FooterNode.swift */,
+			);
+			name = Texture;
+			sourceTree = "<group>";
+		};
+		D53BDD6D25013B65001FB387 /* AutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				D53BDD6E25013B73001FB387 /* CollectionViewController.swift */,
+			);
+			name = AutoLayout;
 			sourceTree = "<group>";
 		};
 		D59BF7E1250000250058C51A /* SampleTests */ = {
@@ -390,9 +412,11 @@
 				9436AACD1DB833A00029B9B2 /* ThumbnailCellNode.swift in Sources */,
 				050E7C7619D22E19004363C2 /* TextureViewController.swift in Sources */,
 				9436AAD11DB9A0290029B9B2 /* LargeImageCellNode.swift in Sources */,
+				D53BDE7D25015FB5001FB387 /* ContentGenerator.swift in Sources */,
 				9436AACB1DB81B6C0029B9B2 /* HeadlineSummaryCellNode.swift in Sources */,
 				2AA47F121DC8E60F00821444 /* ScrollCellNode.swift in Sources */,
 				050E7C7419D22E19004363C2 /* AppDelegate.swift in Sources */,
+				D53BDD6F25013B73001FB387 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

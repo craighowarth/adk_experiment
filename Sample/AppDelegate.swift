@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     RRFPSBar.sharedInstance().isHidden = false
     let window = UIWindow(frame: UIScreen.main.bounds)
     window.backgroundColor = UIColor.white
-    window.rootViewController = UINavigationController(rootViewController: TextureViewController(cellCount: 100));
+    window.rootViewController = UINavigationController(rootViewController: CollectionViewController(cellCount: 100));
     window.makeKeyAndVisible()
     self.window = window
     return true
