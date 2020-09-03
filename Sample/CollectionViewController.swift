@@ -32,7 +32,6 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     super.init(collectionViewLayout: layout)
 
     collectionView.collectionViewLayout = layout
-    collectionView.register(cell: HeadlineSummaryCell.self)
   }
 
   required init?(coder: NSCoder) {
@@ -44,6 +43,7 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     collectionView.dataSource = dataSource
     collectionView.delegate = self
     collectionView.register(cell: HeadlineSummaryCell.self)
+    collectionView.register(cell: ThumbnailCell.self)
   }
 }
 
@@ -60,11 +60,21 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineSummaryCell.cellIdentifier, for: indexPath) as! HeadlineSummaryCell
     let headline = ContentGenerator.words(min: 2,8)
     let summary = ContentGenerator.words(min: 20,40)
-    cell.set(headline: headline, summary: summary)
-    return cell
+
+    switch indexPath.row % 2 {
+    case 0:
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineSummaryCell.cellIdentifier, for: indexPath) as! HeadlineSummaryCell
+      cell.set(headline: headline, summary: summary)
+      return cell
+    case 1:
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThumbnailCell.cellIdentifier, for: indexPath) as! ThumbnailCell
+      cell.set(headline: headline, summary: summary)
+      return cell
+    default:
+      fatalError()
+    }
   }
 }
 
@@ -206,5 +216,74 @@ final class FooterView: UIView {
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+}
+
+final class ThumbnailCell: UICollectionViewCell, Identifiable {
+
+  private lazy var textView: UITextView = {
+    let textView = UITextView()
+    textView.isUserInteractionEnabled = false
+    textView.isScrollEnabled = false
+    textView.setContentCompressionResistancePriority(.required, for: .vertical)
+
+    return textView
+  }()
+
+  private lazy var imageView: UIImageView = {
+    let image = UIImage(named: "thumbnail.jpg")
+    let imageView = UIImageView(image: image)
+    return imageView
+  }()
+
+  private let footerView = FooterView()
+
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+
+    backgroundColor = .white
+
+    let stackView = UIStackView(arrangedSubviews: [textView, footerView])
+    stackView.axis = .vertical
+    stackView.distribution = .fill
+    stackView.spacing = 5
+
+    contentView.addSubview(stackView)
+    contentView.addSubview(imageView)
+
+    stackView.pinEdges(to: contentView)
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+
+    NSLayoutConstraint.activate([
+      imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+      imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+    ])
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  func set(headline: String, summary: String) {
+    let string = NSMutableAttributedString(
+      string: headline + "\n",
+      attributes: [
+        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
+        NSAttributedString.Key.foregroundColor: UIColor.black
+      ]
+    )
+
+    let summary = NSAttributedString(
+      string: summary,
+      attributes: [
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+        NSAttributedString.Key.foregroundColor: UIColor.darkGray
+      ]
+    )
+
+    string.append(summary)
+
+    textView.attributedText = string
   }
 }
