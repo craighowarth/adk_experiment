@@ -42,7 +42,7 @@ DEPENDENCIES:
   - Texture (~> 3.0)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - PINCache
     - PINOperation
     - Texture
@@ -63,6 +63,6 @@ SPEC CHECKSUMS:
   PINRemoteImage: 029538fcfde181950f1fc43317c183f94d7f5e2e
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
 
-PODFILE CHECKSUM: 58957ee007abe5a6d89a4c8c5f094920bc8e9874
+PODFILE CHECKSUM: 78ef56ad50c4c4ab9b17337ba874bdb69b27cd5c
 
 COCOAPODS: 1.9.3
