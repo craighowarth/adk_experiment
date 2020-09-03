@@ -19,4 +19,13 @@ class LayoutPerformanceTimeTests: XCTestCase {
       stopMeasuring()
     })
   }
+
+  func testCollectionViewPerformance() throws {
+    let vc = CollectionViewController(cellCount: 1000)
+    measureMetrics([.wallClockTime], automaticallyStartMeasuring: false, for: {
+      startMeasuring()
+      vc.view.layoutIfNeeded()
+      stopMeasuring()
+    })
+  }
 }
