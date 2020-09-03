@@ -103,14 +103,14 @@ final class HeadlineSummaryCell: UICollectionViewCell, Identifiable {
 
   private lazy var headlineView: UILabel = {
     let label = UILabel()
-    label.numberOfLines = 2
+    label.numberOfLines = 0
     label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     return label
   }()
 
   private lazy var summaryView: UILabel = {
     let label = UILabel()
-    label.numberOfLines = 2
+    label.numberOfLines = 0
     label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     return label
   }()
@@ -174,16 +174,14 @@ final class FooterView: UIView {
   private lazy var shareButton: UIButton = {
     let button = UIButton()
     button.setBackgroundImage(UIImage(named: "NYTShareIcon"), for: .normal)
-    button.widthAnchor.constraint(equalToConstant: 12).isActive = true
-    button.heightAnchor.constraint(equalToConstant: 12).isActive = true
+    button.setContentHuggingPriority(.required, for: .horizontal)
     return button
   }()
 
   private lazy var saveButton: UIButton = {
     let button = UIButton()
     button.setBackgroundImage(UIImage(named: "NYTSaveIcon"), for: .normal)
-    button.widthAnchor.constraint(equalToConstant: 12).isActive = true
-    button.heightAnchor.constraint(equalToConstant: 12).isActive = true
+    button.setContentHuggingPriority(.required, for: .horizontal)
     return button
   }()
 
@@ -196,7 +194,6 @@ final class FooterView: UIView {
     buttonStackView.axis = .horizontal
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
-    buttonStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
     let stackView = UIStackView(arrangedSubviews: [dateView, buttonStackView])
     stackView.axis = .horizontal
