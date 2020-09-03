@@ -24,14 +24,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    ASDisableLogging()
     ASDisplayNode.shouldShowRangeDebugOverlay = true
     RRFPSBar.sharedInstance().isHidden = false
     let window = UIWindow(frame: UIScreen.main.bounds)
     window.backgroundColor = UIColor.white
-    window.rootViewController = UINavigationController(rootViewController: CollectionViewController(cellCount: 100));
+    window.rootViewController = UINavigationController(rootViewController: tabBarController);
     window.makeKeyAndVisible()
     self.window = window
     return true
   }
 
+  private lazy var tabBarController: UITabBarController = {
+    let textureVc = TextureViewController(cellCount: 1000)
+    let collectionVc = CollectionViewController(cellCount: 1000)
+
+    let controller = UITabBarController()
+    controller.viewControllers = [textureVc, collectionVc]
+
+    textureVc.tabBarItem = UITabBarItem(title: "Texture", image: UIImage(systemName: "paintbrush"), tag: 0)
+    collectionVc.tabBarItem = UITabBarItem(title: "Auto Layout", image: UIImage(systemName: "square.grid.3x2"), tag: 0)
+
+    return controller
+  }()
 }
