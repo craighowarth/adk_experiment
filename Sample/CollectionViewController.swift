@@ -208,6 +208,8 @@ final class FooterView: UIView {
     let stackView = UIStackView(arrangedSubviews: [dateView, buttonStackView])
     stackView.axis = .horizontal
     stackView.distribution = .fill
+    stackView.isLayoutMarginsRelativeArrangement = true
+    stackView.layoutMargins = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
 
     addSubview(stackView)
 
@@ -226,7 +228,6 @@ final class ThumbnailCell: UICollectionViewCell, Identifiable {
     textView.isUserInteractionEnabled = false
     textView.isScrollEnabled = false
     textView.setContentCompressionResistancePriority(.required, for: .vertical)
-
     return textView
   }()
 
@@ -238,6 +239,7 @@ final class ThumbnailCell: UICollectionViewCell, Identifiable {
 
   private let footerView = FooterView()
 
+  private let thumbnailSize = CGSize(width: 75.0, height: 75.0)
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -256,13 +258,32 @@ final class ThumbnailCell: UICollectionViewCell, Identifiable {
     imageView.translatesAutoresizingMaskIntoConstraints = false
 
     NSLayoutConstraint.activate([
-      imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-      imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+      imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: textView.textContainerInset.top),
+      imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(textView.textContainer.lineFragmentPadding + textView.textContainerInset.right)),
+      imageView.widthAnchor.constraint(equalToConstant: thumbnailSize.width),
+      imageView.heightAnchor.constraint(equalToConstant: thumbnailSize.height)
     ])
   }
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+
+    let margin: CGFloat = 5
+    let rect = CGRect(
+      x: targetSize.width - thumbnailSize.width - margin - textView.textContainerInset.left - textView.textContainerInset.right,
+      y: 0,
+      width: thumbnailSize.width + margin + textView.textContainerInset.left + textView.textContainerInset.right,
+      height: thumbnailSize.height + margin
+    )
+    let exclusionPath = UIBezierPath(rect: rect)
+    textView.textContainer.exclusionPaths = [exclusionPath]
+
+    let size = super.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: horizontalFittingPriority, verticalFittingPriority: verticalFittingPriority)
+
+    return size
   }
 
   func set(headline: String, summary: String) {
