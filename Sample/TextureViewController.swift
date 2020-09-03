@@ -18,27 +18,22 @@
 import UIKit
 import AsyncDisplayKit
 
-final class ViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource, ASTableDelegate {
-  var showWebViews = false
-
+final class TextureViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource, ASTableDelegate {
   struct State {
     var itemCount: Int
     var fetchingMore: Bool
     static let empty = State(itemCount: 20, fetchingMore: false)
   }
 
-  enum Action {
-    case BeginBatchFetch
-    case EndBatchFetch(resultCount: Int)
-  }
-
   var tableNode: ASTableNode {
     return node as! ASTableNode
   }
 
+  private let cellCount: Int
   private(set) var state: State = .empty
 
-  override init() {
+  init(cellCount: Int) {
+    self.cellCount = cellCount
     super.init(node: ASTableNode())
     tableNode.delegate = self
     tableNode.dataSource = self
@@ -48,24 +43,20 @@ final class ViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource
     fatalError("storyboards are incompatible with truth and beauty")
   }
 
+  private override init() {
+    fatalError("init() is not supported. use init(data:) instead.")
+  }
+
   // MARK: ASTableView data source and delegate.
 
   func tableView(_ tableView: ASTableView, nodeForRowAt indexPath: IndexPath) -> ASCellNode {
-    // Should read the row count directly from table view but
-    // https://github.com/facebook/AsyncDisplayKit/issues/1159
-    let rowCount = self.tableView(tableView, numberOfRowsInSection: 0)
-
-    if state.fetchingMore && indexPath.row == rowCount - 1 {
-      return TailLoadingCellNode()
-    }
-
-    let headline = ViewController.words(min: 2,8)
-    let summary = ViewController.words(min: 20,40)
+    let headline = Self.words(min: 2,8)
+    let summary = Self.words(min: 20,40)
     let node: ASCellNode
     let itemNumber = indexPath.row + 1
     if itemNumber % 5 == 0 {
       node = ScrollCellNode(numberOfItems: 10)
-    } else if itemNumber % 4 == 0 && showWebViews {
+    } else if itemNumber % 4 == 0 {
       let url = NSURL(string: "https://secure-ds.serving-sys.com/BurstingRes/Site-85296/WSFolders/7649898/TH029_728x90_r3.hyperesources/TH029_728x90_GiGi.jpg")!
       node = WebCellNode(url: url, height: 50)
     } else if itemNumber % 3 == 0 {
@@ -87,88 +78,9 @@ final class ViewController: ASDKViewController<ASDisplayNode>, ASTableDataSource
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    var count = state.itemCount
-    if state.fetchingMore {
-      count += 1
-    }
-    return count
+    return cellCount
   }
 
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    showWebViews = !showWebViews
-    tableView.reloadData()
-  }
-
-  func tableView(_ tableView: ASTableView, willBeginBatchFetchWith context: ASBatchContext) {
-    /// This call will come in on a background thread. Switch to main
-    /// to add our spinner, then fire off our fetch.
-    DispatchQueue.main.async {
-      let oldState = self.state
-      self.state = ViewController.handleAction(action: .BeginBatchFetch, fromState: oldState)
-      self.renderDiff(oldState: oldState)
-    }
-
-    ViewController.fetchData { resultCount in
-      let action = Action.EndBatchFetch(resultCount: resultCount)
-      let oldState = self.state
-      self.state = ViewController.handleAction(action: action, fromState: oldState)
-      self.renderDiff(oldState: oldState)
-      context.completeBatchFetching(true)
-    }
-  }
-
-  private func renderDiff(oldState: State) {
-    let tableView = tableNode
-
-    tableView.performBatch(animated: false, updates: {
-      // Add or remove items
-      let rowCountChange = state.itemCount - oldState.itemCount
-      if rowCountChange > 0 {
-        let indexPaths = (oldState.itemCount..<state.itemCount).map { index in
-          IndexPath(row: index, section: 0)
-        }
-        tableView.insertRows(at: indexPaths, with: .none)
-      } else if rowCountChange < 0 {
-        assertionFailure("Deleting rows is not implemented. YAGNI.")
-      }
-
-      // Add or remove spinner.
-      if state.fetchingMore != oldState.fetchingMore {
-        if state.fetchingMore {
-          // Add spinner.
-          let spinnerIndexPath = IndexPath(row: state.itemCount, section: 0)
-          tableView.insertRows(at: [spinnerIndexPath], with: .none)
-        } else {
-          // Remove spinner.
-          let spinnerIndexPath = IndexPath(row: oldState.itemCount, section: 0)
-          tableView.deleteRows(at: [spinnerIndexPath], with: .none)
-        }
-      }
-    }, completion: nil)
-  }
-
-  /// (Pretend) fetches some new items and calls the
-  /// completion handler on the main thread.
-  private static func fetchData(completion: @escaping (Int) -> Void) {
-    let time = DispatchTime.now() + 1
-    DispatchQueue.main.asyncAfter(deadline: time) {
-      let resultCount = Int(arc4random_uniform(20))
-      completion(resultCount)
-    }
-  }
-
-  private static func handleAction(action: Action, fromState state: State) -> State {
-    var state = state
-    switch action {
-    case .BeginBatchFetch:
-      state.fetchingMore = true
-    case let .EndBatchFetch(resultCount):
-      state.itemCount += resultCount
-      state.fetchingMore = false
-    }
-    return state
-  }
-  
   private static func words(min: Int, _ max: Int) -> String {
     let wordList = [
       "alias", "consequatur", "aut", "sit", "voluptatem",
