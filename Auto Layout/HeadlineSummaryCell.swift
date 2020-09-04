@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HeadlineSummaryCell: UICollectionViewCell, Reusable {
+final class HeadlineSummaryCell: BottomSeparatorCell {
 
   private lazy var headlineView: UILabel = {
     let label = UILabel()
@@ -35,14 +35,12 @@ final class HeadlineSummaryCell: UICollectionViewCell, Reusable {
     stackView.axis = .vertical
     stackView.distribution = .fill
     stackView.spacing = 5
+    stackView.isLayoutMarginsRelativeArrangement = true
+    stackView.layoutMargins = UIEdgeInsets(top: .inset, left: .inset, bottom: 0, right: .inset)
 
     contentView.addSubview(stackView)
 
     stackView.pinEdges(to: contentView)
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
 
   func set(headline: String, summary: String) {

@@ -22,3 +22,9 @@ extension UIView {
     trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
   }
 }
+
+extension UIStackView {
+  func addArrangedSubviews(_ subviews: [UIView]) {
+    subviews.forEach(addArrangedSubview(_:))
+  }
+}

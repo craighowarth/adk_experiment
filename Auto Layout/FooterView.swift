@@ -41,8 +41,6 @@ final class FooterView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    backgroundColor = .white
-
     let buttonStackView = UIStackView(arrangedSubviews: [saveButton, shareButton])
     buttonStackView.axis = .horizontal
     buttonStackView.spacing = 5
@@ -51,8 +49,6 @@ final class FooterView: UIView {
     let stackView = UIStackView(arrangedSubviews: [dateView, buttonStackView])
     stackView.axis = .horizontal
     stackView.distribution = .fill
-    stackView.isLayoutMarginsRelativeArrangement = true
-    stackView.layoutMargins = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
 
     addSubview(stackView)
 

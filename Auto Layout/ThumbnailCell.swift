@@ -8,13 +8,15 @@
 
 import UIKit
 
-final class ThumbnailCell: UICollectionViewCell, Reusable {
+final class ThumbnailCell: BottomSeparatorCell {
 
   private lazy var textView: UITextView = {
     let textView = UITextView()
     textView.isUserInteractionEnabled = false
     textView.isScrollEnabled = false
     textView.setContentCompressionResistancePriority(.required, for: .vertical)
+    textView.textContainerInset = .zero
+    textView.textContainer.lineFragmentPadding = 0
     return textView
   }()
 
@@ -28,15 +30,19 @@ final class ThumbnailCell: UICollectionViewCell, Reusable {
 
   private let thumbnailSize = CGSize(width: 75.0, height: 75.0)
 
+  private let stackView = UIStackView()
+
   override init(frame: CGRect) {
     super.init(frame: frame)
 
     backgroundColor = .white
 
-    let stackView = UIStackView(arrangedSubviews: [textView, footerView])
+    stackView.addArrangedSubviews([textView, footerView])
     stackView.axis = .vertical
     stackView.distribution = .fill
     stackView.spacing = 5
+    stackView.isLayoutMarginsRelativeArrangement = true
+    stackView.layoutMargins = UIEdgeInsets(top: 0, left: .inset, bottom: 0, right: .inset)
 
     contentView.addSubview(stackView)
     contentView.addSubview(imageView)
@@ -46,21 +52,17 @@ final class ThumbnailCell: UICollectionViewCell, Reusable {
 
     NSLayoutConstraint.activate([
       imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: textView.textContainerInset.top),
-      imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -(textView.textContainer.lineFragmentPadding + textView.textContainerInset.right)),
+      imageView.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
       imageView.widthAnchor.constraint(equalToConstant: thumbnailSize.width),
       imageView.heightAnchor.constraint(equalToConstant: thumbnailSize.height)
     ])
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
 
   override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
 
     let margin: CGFloat = 5
     let rect = CGRect(
-      x: targetSize.width - thumbnailSize.width - margin - textView.textContainerInset.left - textView.textContainerInset.right,
+      x: targetSize.width - stackView.layoutMargins.left - stackView.layoutMargins.right - thumbnailSize.width - margin - textView.textContainerInset.left - textView.textContainerInset.right,
       y: 0,
       width: thumbnailSize.width + margin + textView.textContainerInset.left + textView.textContainerInset.right,
       height: thumbnailSize.height + margin
