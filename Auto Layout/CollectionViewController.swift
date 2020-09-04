@@ -79,38 +79,3 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
     }
   }
 }
-
-protocol Reusable {
-  static var reuseIdentifier: String { get }
-}
-
-extension Reusable {
-  static var reuseIdentifier: String {
-    return String(describing: self)
-  }
-}
-
-extension UICollectionView {
-  func register<T: UICollectionViewCell & Reusable>(cell: T.Type) {
-    register(cell, forCellWithReuseIdentifier: cell.reuseIdentifier)
-  }
-
-  func dequeue<T: UICollectionViewCell & Reusable>(for indexPath: IndexPath) -> T {
-    dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
-  }
-}
-
-extension UIView {
-  func pinEdgesToSuperView() {
-    guard let view = superview else { return }
-    pinEdges(to: view)
-  }
-
-  func pinEdges(to view: UIView) {
-    translatesAutoresizingMaskIntoConstraints = false
-    topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-    bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-    leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-    trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-  }
-}
