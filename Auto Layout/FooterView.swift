@@ -43,7 +43,7 @@ final class FooterView: UIView {
 
     backgroundColor = .white
 
-    let buttonStackView = UIStackView(arrangedSubviews: [shareButton, saveButton])
+    let buttonStackView = UIStackView(arrangedSubviews: [saveButton, shareButton])
     buttonStackView.axis = .horizontal
     buttonStackView.spacing = 5
     buttonStackView.distribution = .fillEqually
