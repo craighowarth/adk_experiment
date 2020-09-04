@@ -45,7 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     controller.viewControllers = [textureVc, collectionVc].map(UINavigationController.init(rootViewController:))
 
     textureVc.tabBarItem = UITabBarItem(title: "Texture", image: UIImage(systemName: "paintbrush"), tag: 0)
-    collectionVc.tabBarItem = UITabBarItem(title: "Auto Layout", image: UIImage(systemName: "square.grid.3x2"), tag: 0)
+    collectionVc.tabBarItem = UITabBarItem(title: "Auto Layout", image: UIImage(systemName: "square.grid.3x2"), tag: 1)
+
+    controller.selectedIndex = 1
 
     return controller
   }()
