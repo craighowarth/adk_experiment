@@ -113,6 +113,8 @@
 		050E7C6519D22E19004363C2 = {
 			isa = PBXGroup;
 			children = (
+				CDEF690025028431006082AB /* Auto Layout */,
+				CDEF690125028439006082AB /* Texture */,
 				050E7C7019D22E19004363C2 /* Sample */,
 				D59BF7E1250000250058C51A /* SampleTests */,
 				D59BF7EF250001410058C51A /* SampleUITests */,
@@ -138,8 +140,6 @@
 		050E7C7019D22E19004363C2 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
-				D53BDD6D25013B65001FB387 /* AutoLayout */,
-				D53BDD6C25013B51001FB387 /* Texture */,
 				050E7C7319D22E19004363C2 /* AppDelegate.swift */,
 				9436AAD41DBA78170029B9B2 /* Crop.swift */,
 				2A3038B21DC8F7DD00228931 /* RRFPSBar.h */,
@@ -183,7 +183,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		D53BDD6C25013B51001FB387 /* Texture */ = {
+		CDEF690025028431006082AB /* Auto Layout */ = {
+			isa = PBXGroup;
+			children = (
+				D53BDD6E25013B73001FB387 /* CollectionViewController.swift */,
+			);
+			path = "Auto Layout";
+			sourceTree = "<group>";
+		};
+		CDEF690125028439006082AB /* Texture */ = {
 			isa = PBXGroup;
 			children = (
 				050E7C7519D22E19004363C2 /* TextureViewController.swift */,
@@ -194,15 +202,7 @@
 				2AA47F111DC8E60F00821444 /* ScrollCellNode.swift */,
 				2A3038B51DC90F6900228931 /* FooterNode.swift */,
 			);
-			name = Texture;
-			sourceTree = "<group>";
-		};
-		D53BDD6D25013B65001FB387 /* AutoLayout */ = {
-			isa = PBXGroup;
-			children = (
-				D53BDD6E25013B73001FB387 /* CollectionViewController.swift */,
-			);
-			name = AutoLayout;
+			path = Texture;
 			sourceTree = "<group>";
 		};
 		D59BF7E1250000250058C51A /* SampleTests */ = {
