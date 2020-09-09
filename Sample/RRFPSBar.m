@@ -30,6 +30,8 @@
 #import "RRFPSBar.h"
 #import <QuartzCore/QuartzCore.h>
 
+// NOTE - Zev Eisenberg - this file has been edited manually since the 0.0.2 release on GitHub.
+// We have added support for > 60 Hz refresh rate and safe area insets.
 
 @implementation RRFPSBar {
     CADisplayLink          *_displayLink;
@@ -59,7 +61,11 @@
 
 
 - (id)init {
-    if( (self = [super initWithFrame:[[UIApplication sharedApplication] statusBarFrame]]) ){
+        if( (self = [super initWithFrame: UIApplication.sharedApplication.statusBarFrame]) ){
+          self.frame = CGRectMake(0,
+                                  self.safeAreaInsets.top,
+                                  CGRectGetWidth(UIApplication.sharedApplication.statusBarFrame),
+                                  20);
         
         _maxHistoryDTLength = (NSInteger)CGRectGetWidth(self.bounds);
         _historyDT = malloc(sizeof(CFTimeInterval) * _maxHistoryDTLength);
@@ -123,7 +129,7 @@
             [_fpsTextLayer setDrawsAsynchronously:YES];
         }
         
-        [self setDesiredChartUpdateInterval: 1.0f /60.0f];
+        [self setDesiredChartUpdateInterval: 1.0f / (double)UIScreen.mainScreen.maximumFramesPerSecond];
     }
     return self;
 }
@@ -199,7 +205,7 @@
         maxDT = MAX(maxDT, _historyDT[i]);
         avgDT += _historyDT[i];
         
-        CGFloat fraction =  roundf(1.0f /(float)_historyDT[i]) /60.0f;
+        CGFloat fraction =  roundf(1.0f /(float)_historyDT[i]) / (CGFloat)UIScreen.mainScreen.maximumFramesPerSecond;
         CGFloat y = _chartLayer.frame.size.height -_chartLayer.frame.size.height *fraction;
         y = MAX(0.0f, MIN(_chartLayer.frame.size.height, y));
         
