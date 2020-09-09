@@ -30,6 +30,8 @@
 #import "RRFPSBar.h"
 #import <QuartzCore/QuartzCore.h>
 
+// NOTE - Zev Eisenberg - this file has been edited manually since the 0.0.2 release on GitHub.
+// We have added support for > 60 Hz refresh rate and safe area insets.
 
 @implementation RRFPSBar {
     CADisplayLink          *_displayLink;
