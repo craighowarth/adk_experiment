@@ -36,6 +36,7 @@
 		D53BDE7D25015FB5001FB387 /* ContentGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53BDE7C25015FB5001FB387 /* ContentGenerator.swift */; };
 		D58F43742500385F000101A2 /* LayoutPerformanceTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59BF7E2250000250058C51A /* LayoutPerformanceTimeTests.swift */; };
 		D59BF7F1250001410058C51A /* ScrollPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59BF7F0250001410058C51A /* ScrollPerformanceTests.swift */; };
+		E4C4D39325093F1100A0B9A0 /* LargeImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C4D39225093F1100A0B9A0 /* LargeImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		D59BF7EE250001410058C51A /* SampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D59BF7F0250001410058C51A /* ScrollPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollPerformanceTests.swift; sourceTree = "<group>"; };
 		D59BF7F2250001410058C51A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4C4D39225093F1100A0B9A0 /* LargeImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 				CDEF690D25028880006082AB /* BottomSeparatorCell.swift */,
 				CDEF690325028637006082AB /* ThumbnailCell.swift */,
 				CDEF69052502867C006082AB /* HeadlineSummaryCell.swift */,
+				E4C4D39225093F1100A0B9A0 /* LargeImageCell.swift */,
 				CDEF690725028694006082AB /* FooterView.swift */,
 				CDEF69092502878F006082AB /* Reusable.swift */,
 				CDEF690B250287BE006082AB /* UIView+Extensions.swift */,
@@ -443,6 +446,7 @@
 				CDEF690A2502878F006082AB /* Reusable.swift in Sources */,
 				2AA47F121DC8E60F00821444 /* ScrollCellNode.swift in Sources */,
 				050E7C7419D22E19004363C2 /* AppDelegate.swift in Sources */,
+				E4C4D39325093F1100A0B9A0 /* LargeImageCell.swift in Sources */,
 				CDEF690E25028880006082AB /* BottomSeparatorCell.swift in Sources */,
 				D53BDD6F25013B73001FB387 /* CollectionViewController.swift in Sources */,
 			);

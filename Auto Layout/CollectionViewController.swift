@@ -15,20 +15,7 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
 
   init(cellCount: Int) {
     self.cellCount = cellCount
-
-    let size = NSCollectionLayoutSize(
-        widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
-        heightDimension: NSCollectionLayoutDimension.estimated(44)
-    )
-    let item = NSCollectionLayoutItem(layoutSize: size)
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
-
-    let section = NSCollectionLayoutSection(group: group)
-
-    section.interGroupSpacing = 10
-
-    let layout = UICollectionViewCompositionalLayout(section: section)
-
+    let layout = CollectionViewController.layout
     super.init(collectionViewLayout: layout)
 
     collectionView.collectionViewLayout = layout
@@ -46,6 +33,49 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     collectionView.delegate = self
     collectionView.register(cell: HeadlineSummaryCell.self)
     collectionView.register(cell: ThumbnailCell.self)
+    collectionView.register(cell: LargeImageCell.self)
+  }
+
+  private static var layout: UICollectionViewLayout {
+    let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
+      if sectionIndex.isCarouselSection {
+        return carouselLayoutSection
+      } else {
+        return defaultLayoutSection
+      }
+    }
+    return layout
+  }
+
+  private static var carouselLayoutSection: NSCollectionLayoutSection {
+    let itemSize = NSCollectionLayoutSize(
+      widthDimension: .fractionalWidth(1.0),
+      heightDimension: .absolute(300.0)
+    )
+    let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+    let groupSize = NSCollectionLayoutSize(
+      widthDimension: .absolute(200.0),
+      heightDimension: .estimated(300.0)
+    )
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    let section = NSCollectionLayoutSection(group: group)
+    section.orthogonalScrollingBehavior = .continuous
+    section.interGroupSpacing = 10
+    section.contentInsets = .init(top: 10, leading: 10, bottom: 0, trailing: 10)
+    return section
+  }
+
+  private static var defaultLayoutSection: NSCollectionLayoutSection {
+    let size = NSCollectionLayoutSize(
+        widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+        heightDimension: NSCollectionLayoutDimension.estimated(44)
+    )
+    let item = NSCollectionLayoutItem(layoutSize: size)
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitem: item, count: 1)
+    let section = NSCollectionLayoutSection(group: group)
+    section.contentInsets = .init(top: 10, leading: 0, bottom: 0, trailing: 0)
+    return section
   }
 }
 
@@ -57,25 +87,47 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
     self.cellCount = cellCount
   }
 
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
     return cellCount
+  }
+
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    if section.isCarouselSection {
+      return 10
+    }
+    return 1
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let headline = ContentGenerator.words(min: 2,8)
     let summary = ContentGenerator.words(min: 20,40)
 
-    switch indexPath.row % 2 {
-    case 0:
+    if indexPath.section.isCarouselSection {
+      let cell: LargeImageCell = collectionView.dequeue(for: indexPath)
+      cell.updateUI(
+        headline: "Miles Davis",
+        summary: "Miles Dewey Davis III was an American jazz trumpeter, bandleader, and composer.",
+        image: "miles.png"
+      )
+      return cell
+    } else if indexPath.section.isHeadlineSummarySection {
       let cell: HeadlineSummaryCell = collectionView.dequeue(for: indexPath)
       cell.set(headline: headline, summary: summary)
       return cell
-    case 1:
+    } else {
       let cell: ThumbnailCell = collectionView.dequeue(for: indexPath)
       cell.set(headline: headline, summary: summary)
       return cell
-    default:
-      fatalError()
     }
+  }
+}
+
+extension Int {
+  var isCarouselSection: Bool {
+    return (self + 1) % 5 == 0
+  }
+
+  var isHeadlineSummarySection: Bool {
+    return (self + 1) % 4 == 0
   }
 }
