@@ -59,7 +59,11 @@
 
 
 - (id)init {
-    if( (self = [super initWithFrame:[[UIApplication sharedApplication] statusBarFrame]]) ){
+        CGRect barFrame = CGRectMake(0,
+                                     self.safeAreaInsets.top,
+                                     CGRectGetWidth(UIApplication.sharedApplication.statusBarFrame),
+                                     20);
+        if( (self = [super initWithFrame: barFrame]) ){
         
         _maxHistoryDTLength = (NSInteger)CGRectGetWidth(self.bounds);
         _historyDT = malloc(sizeof(CFTimeInterval) * _maxHistoryDTLength);
