@@ -36,18 +36,11 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     collectionView.register(cell: LargeImageCell.self)
   }
 
-  private static var layout: UICollectionViewLayout {
-    let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
-      if sectionIndex.isCarouselSection {
-        return carouselLayoutSection
-      } else {
-        return defaultLayoutSection
-      }
-    }
-    return layout
+  private static let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
+    sectionIndex.isCarouselSection ? carouselLayoutSection : defaultLayoutSection
   }
 
-  private static var carouselLayoutSection: NSCollectionLayoutSection {
+  private static let carouselLayoutSection: NSCollectionLayoutSection = {
     let itemSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1.0),
       heightDimension: .absolute(300.0)
@@ -64,9 +57,9 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     section.interGroupSpacing = 10
     section.contentInsets = .init(top: 10, leading: 10, bottom: 0, trailing: 10)
     return section
-  }
+  }()
 
-  private static var defaultLayoutSection: NSCollectionLayoutSection {
+  private static let defaultLayoutSection: NSCollectionLayoutSection = {
     let size = NSCollectionLayoutSize(
         widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
         heightDimension: NSCollectionLayoutDimension.estimated(44)
@@ -76,7 +69,7 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     let section = NSCollectionLayoutSection(group: group)
     section.contentInsets = .init(top: 10, leading: 0, bottom: 0, trailing: 0)
     return section
-  }
+  }()
 }
 
 final private class CollectionViewDataSource: NSObject, UICollectionViewDataSource {
@@ -92,10 +85,7 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if section.isCarouselSection {
-      return 10
-    }
-    return 1
+    return section.isCarouselSection ? 10 : 1
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,7 +94,7 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
 
     if indexPath.section.isCarouselSection {
       let cell: LargeImageCell = collectionView.dequeue(for: indexPath)
-      cell.updateUI(
+      cell.set(
         headline: "Miles Davis",
         summary: "Miles Dewey Davis III was an American jazz trumpeter, bandleader, and composer.",
         image: "miles.png"
@@ -122,7 +112,7 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
   }
 }
 
-extension Int {
+private extension Int {
   var isCarouselSection: Bool {
     return (self + 1) % 5 == 0
   }

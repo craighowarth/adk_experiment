@@ -73,7 +73,7 @@ final class LargeImageCell: BottomSeparatorCell {
       summaryLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10.0)])
   }
 
-  func updateUI(headline: String, summary: String, image: String) {
+  func set(headline: String, summary: String, image: String) {
     headlineLabel.attributedText = NSAttributedString(
       string: headline,
       attributes: [
