@@ -10,36 +10,26 @@ import UIKit
 
 final class LargeImageCell: BottomSeparatorCell {
 
-  private let headlineLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+  private let headlineLabel = UILabel().configure {
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
 
-  private let summaryLabel: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 0
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+  private let summaryLabel = UILabel().configure {
+    $0.numberOfLines = 0
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
 
-  private let kickerLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+  private let kickerLabel = UILabel().configure {
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
 
-  private let creditLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+  private let creditLabel = UILabel().configure {
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
 
-  private let footerLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+  private let footerLabel = UILabel().configure {
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
 
   private let imageView: UIImageView = {
     let imageView = UIImageView()

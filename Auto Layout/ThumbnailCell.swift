@@ -10,21 +10,15 @@ import UIKit
 
 final class ThumbnailCell: BottomSeparatorCell {
 
-  private lazy var textView: UITextView = {
-    let textView = UITextView()
-    textView.isUserInteractionEnabled = false
-    textView.isScrollEnabled = false
-    textView.setContentCompressionResistancePriority(.required, for: .vertical)
-    textView.textContainerInset = .zero
-    textView.textContainer.lineFragmentPadding = 0
-    return textView
-  }()
+  private let textView = UITextView().configure {
+    $0.isUserInteractionEnabled = false
+    $0.isScrollEnabled = false
+    $0.setContentCompressionResistancePriority(.required, for: .vertical)
+    $0.textContainerInset = .zero
+    $0.textContainer.lineFragmentPadding = 0
+  }
 
-  private lazy var imageView: UIImageView = {
-    let image = UIImage(named: "thumbnail.jpg")
-    let imageView = UIImageView(image: image)
-    return imageView
-  }()
+  private let imageView = UIImageView(image: UIImage(named: "thumbnail.jpg"))
 
   private let footerView = FooterView()
 

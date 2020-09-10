@@ -10,19 +10,15 @@ import UIKit
 
 final class HeadlineSummaryCell: BottomSeparatorCell {
 
-  private lazy var headlineView: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 0
-    label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-    return label
-  }()
+  private let headlineView = UILabel().configure {
+    $0.numberOfLines = 0
+    $0.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+  }
 
-  private lazy var summaryView: UILabel = {
-    let label = UILabel()
-    label.numberOfLines = 0
-    label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-    return label
-  }()
+  private let summaryView = UILabel().configure {
+    $0.numberOfLines = 0
+    $0.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+  }
 
   private let footerView = FooterView()
 

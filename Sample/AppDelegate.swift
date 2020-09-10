@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 
-  private lazy var tabBarController: UITabBarController = {
+  private let tabBarController: UITabBarController = {
     let textureVc = TextureViewController(cellCount: 1000)
     let collectionVc = CollectionViewController(cellCount: 1000)
 
