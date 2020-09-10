@@ -34,6 +34,7 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
     collectionView.register(cell: HeadlineSummaryCell.self)
     collectionView.register(cell: ThumbnailCell.self)
     collectionView.register(cell: LargeImageCell.self)
+    collectionView.register(cell: WebCell.self)
   }
 
   private static let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
@@ -111,7 +112,7 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
       let cell: ThumbnailCell = collectionView.dequeue(for: indexPath)
       cell.set(headline: headline, summary: summary)
       return cell
-    case .webCellSection, .largeImageCellSection:
+    case .largeImageCellSection:
       let cell: LargeImageCell = collectionView.dequeue(for: indexPath)
       cell.set(
         headline: headline,
@@ -119,6 +120,13 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
         kicker: "KICKER",
         credit: "Photo by Joe Blow",
         crop: Crop(imageFilename: "coltrane.jpg", size: CGSize(width: 540, height: 300))
+      )
+      return cell
+    case .webCellSection:
+      let cell: WebCell = collectionView.dequeue(for: indexPath)
+      cell.set(
+        url: URL(string: "https://secure-ds.serving-sys.com/BurstingRes/Site-85296/WSFolders/7649898/TH029_728x90_r3.hyperesources/TH029_728x90_GiGi.jpg")!,
+        height: 50
       )
       return cell
     }

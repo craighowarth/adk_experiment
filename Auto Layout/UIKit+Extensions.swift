@@ -47,6 +47,11 @@ extension NSLayoutConstraint {
     self.priority = priority
     return self
   }
+
+  func activated() -> Self {
+    isActive = true
+    return self
+  }
 }
 
 extension UIEdgeInsets {
