@@ -21,19 +21,19 @@ final class ThumbnailCellNode: ASCellNode {
     let headlineAttributedString = NSAttributedString(
       string: "\(headline)\n",
       attributes: [
-        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
-        NSAttributedString.Key.foregroundColor: UIColor.black
+        .font: UIFont.boldSystemFont(ofSize: 18),
+        .foregroundColor: UIColor.black
       ])
     let spacerAttributedString = NSAttributedString(
       string: "\n",
       attributes: [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)
+        .font: UIFont.systemFont(ofSize: 10)
       ])
     let summaryAttributedString = NSAttributedString(
       string: summary,
       attributes: [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-        NSAttributedString.Key.foregroundColor: UIColor.darkGray
+        .font: UIFont.systemFont(ofSize: 14),
+        .foregroundColor: UIColor.darkGray
       ])
     
     let attributedString = NSMutableAttributedString()

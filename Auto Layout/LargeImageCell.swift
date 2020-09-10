@@ -75,15 +75,15 @@ final class LargeImageCell: BottomSeparatorCell {
     headlineLabel.attributedText = NSAttributedString(
       string: headline,
       attributes: [
-        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
-        NSAttributedString.Key.foregroundColor: UIColor.black
+        .font: UIFont.boldSystemFont(ofSize: 18),
+        .foregroundColor: UIColor.black
       ])
 
     summaryLabel.attributedText = NSAttributedString(
       string: summary,
       attributes: [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-        NSAttributedString.Key.foregroundColor: UIColor.darkGray
+        .font: UIFont.systemFont(ofSize: 14),
+        .foregroundColor: UIColor.darkGray
       ])
     imageView.image = UIImage(named: crop.imageFilename)
     imageAspectConstraint.isActive = false
@@ -96,16 +96,16 @@ final class LargeImageCell: BottomSeparatorCell {
     creditLabel.attributedText = NSAttributedString(
       string: credit,
       attributes: [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9),
-        NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        .font: UIFont.systemFont(ofSize: 9),
+        .foregroundColor: UIColor.lightGray
       ])
     creditLabel.isHidden = credit.isEmpty
 
     kickerLabel.attributedText = NSAttributedString(
       string: kicker,
       attributes: [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-        NSAttributedString.Key.foregroundColor: UIColor.black
+        .font: UIFont.systemFont(ofSize: 12),
+        .foregroundColor: UIColor.black
       ])
     kickerLabel.isHidden = kicker.isEmpty
   }

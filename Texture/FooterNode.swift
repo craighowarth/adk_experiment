@@ -24,8 +24,8 @@ final class FooterNode: ASDisplayNode {
     dateNode.attributedText = NSAttributedString(
       string: displayDate,
       attributes: [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-        NSAttributedString.Key.foregroundColor: UIColor.gray
+        .font: UIFont.systemFont(ofSize: 12),
+        .foregroundColor: UIColor.gray
       ])
 
     shareButtonNode.setImage(UIImage(named: "NYTShareIcon"), for: .normal)

@@ -29,8 +29,8 @@ final class LargeImageCellNode: ASCellNode {
       creditNode.attributedText = NSAttributedString(
         string: credit,
         attributes: [
-          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9),
-          NSAttributedString.Key.foregroundColor: UIColor.lightGray
+          .font: UIFont.systemFont(ofSize: 9),
+          .foregroundColor: UIColor.lightGray
         ])
     }
 
@@ -38,23 +38,23 @@ final class LargeImageCellNode: ASCellNode {
       kickerNode.attributedText = NSAttributedString(
         string: kicker,
         attributes: [
-          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-          NSAttributedString.Key.foregroundColor: UIColor.black
+          .font: UIFont.systemFont(ofSize: 12),
+          .foregroundColor: UIColor.black
         ])
     }
 
     headlineNode.attributedText = NSAttributedString(
       string: headline,
       attributes: [
-        NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
-        NSAttributedString.Key.foregroundColor: UIColor.black
+        .font: UIFont.boldSystemFont(ofSize: 18),
+        .foregroundColor: UIColor.black
       ])
     
     summaryNode.attributedText = NSAttributedString(
       string: summary,
       attributes: [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-        NSAttributedString.Key.foregroundColor: UIColor.darkGray
+        .font: UIFont.systemFont(ofSize: 14),
+        .foregroundColor: UIColor.darkGray
       ])
 
     addSubnode(imageNode)
