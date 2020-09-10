@@ -73,7 +73,7 @@ final class LargeImageCell: BottomSeparatorCell {
       summaryLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10.0)])
   }
 
-  func set(headline: String, summary: String, image: String) {
+  func set(headline: String, summary: String, image: String, credit: String, kicker: String) {
     headlineLabel.attributedText = NSAttributedString(
       string: headline,
       attributes: [
@@ -88,5 +88,27 @@ final class LargeImageCell: BottomSeparatorCell {
         NSAttributedString.Key.foregroundColor: UIColor.darkGray
       ])
     imageView.image = UIImage(named: image)
+
+    if !credit.isEmpty {
+      creditLabel.attributedText = NSAttributedString(
+        string: credit,
+        attributes: [
+          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 9),
+          NSAttributedString.Key.foregroundColor: UIColor.lightGray
+      ])
+    } else {
+      creditLabel.attributedText = nil
+    }
+
+    if !kicker.isEmpty {
+      kickerLabel.attributedText = NSAttributedString(
+        string: kicker,
+        attributes: [
+          NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+          NSAttributedString.Key.foregroundColor: UIColor.black
+        ])
+    } else {
+      kickerLabel.attributedText = nil
+    }
   }
 }

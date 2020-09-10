@@ -37,7 +37,7 @@ final class CollectionViewController: UICollectionViewController, UICollectionVi
   }
 
   private static let layout = UICollectionViewCompositionalLayout { sectionIndex, _ in
-    sectionIndex.isCarouselSection ? carouselLayoutSection : defaultLayoutSection
+    Section(sectionIndex).isCarouselSection ? carouselLayoutSection : defaultLayoutSection
   }
 
   private static let carouselLayoutSection: NSCollectionLayoutSection = {
@@ -85,39 +85,58 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return section.isCarouselSection ? 10 : 1
+    return Section(section).isCarouselSection ? 10 : 1
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let headline = ContentGenerator.words(min: 2,8)
     let summary = ContentGenerator.words(min: 20,40)
 
-    if indexPath.section.isCarouselSection {
+    switch Section(indexPath.section) {
+    case .carouselSection:
       let cell: LargeImageCell = collectionView.dequeue(for: indexPath)
       cell.set(
         headline: "Miles Davis",
         summary: "Miles Dewey Davis III was an American jazz trumpeter, bandleader, and composer.",
-        image: "miles.png"
+        image: "miles.png",
+        credit: "",
+        kicker: ""
       )
       return cell
-    } else if indexPath.section.isHeadlineSummarySection {
+    case .headlineSummarySection:
       let cell: HeadlineSummaryCell = collectionView.dequeue(for: indexPath)
       cell.set(headline: headline, summary: summary)
       return cell
-    } else {
+    case .thumbnailCellSection:
       let cell: ThumbnailCell = collectionView.dequeue(for: indexPath)
       cell.set(headline: headline, summary: summary)
+      return cell
+    case .webCellSection, .largeImageCellSection:
+      let cell: LargeImageCell = collectionView.dequeue(for: indexPath)
+      cell.set(
+        headline: headline,
+        summary: summary,
+        image: "coltrane.jpg",
+        credit: "Photo by Joe Blow",
+        kicker: "KICKER"
+      )
       return cell
     }
   }
 }
 
-private extension Int {
+private enum Section: CaseIterable {
+  case carouselSection
+  case webCellSection
+  case largeImageCellSection
+  case thumbnailCellSection
+  case headlineSummarySection
+
   var isCarouselSection: Bool {
-    return (self + 1) % 5 == 0
+    return self == .carouselSection
   }
 
-  var isHeadlineSummarySection: Bool {
-    return (self + 1) % 4 == 0
+  init(_ sectionIndex: Int) {
+    self = Self.allCases[sectionIndex % Self.allCases.count]
   }
 }
