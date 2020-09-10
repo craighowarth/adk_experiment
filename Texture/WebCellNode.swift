@@ -62,7 +62,7 @@ final class WebCellNode: ASCellNode {
     verticalStackSpec.children = [ disclaimerNode, webNode ]
     verticalStackSpec.spacing = 10.0
     
-    let insets = UIEdgeInsets(top: nodeMargin, left: nodeMargin, bottom: nodeMargin, right: nodeMargin)
+    let insets = UIEdgeInsets(all: nodeMargin)
     return ASInsetLayoutSpec(insets: insets, child: verticalStackSpec)
   }
 }

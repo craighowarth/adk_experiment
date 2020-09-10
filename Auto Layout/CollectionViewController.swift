@@ -98,9 +98,9 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
       cell.set(
         headline: "Miles Davis",
         summary: "Miles Dewey Davis III was an American jazz trumpeter, bandleader, and composer.",
-        image: "miles.png",
+        kicker: "",
         credit: "",
-        kicker: ""
+        crop: Crop(imageFilename: "miles.png", size: CGSize(width: 560, height: 560))
       )
       return cell
     case .headlineSummarySection:
@@ -116,9 +116,9 @@ final private class CollectionViewDataSource: NSObject, UICollectionViewDataSour
       cell.set(
         headline: headline,
         summary: summary,
-        image: "coltrane.jpg",
+        kicker: "KICKER",
         credit: "Photo by Joe Blow",
-        kicker: "KICKER"
+        crop: Crop(imageFilename: "coltrane.jpg", size: CGSize(width: 540, height: 300))
       )
       return cell
     }

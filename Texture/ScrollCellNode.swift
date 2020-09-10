@@ -37,7 +37,7 @@ final class ScrollCellNode: ASCellNode, ASCollectionDelegate, ASCollectionDataSo
     let collectionNodeSize = CGSize(width: constrainedSize.max.width, height: elementSize.height)
     collectionNode.style.preferredSize = collectionNodeSize
 
-    let insets = UIEdgeInsets(top: nodeMargin, left: nodeMargin, bottom: nodeMargin, right: nodeMargin)
+    let insets = UIEdgeInsets(all: nodeMargin)
     return ASInsetLayoutSpec(insets: insets, child: collectionNode)
 
   }

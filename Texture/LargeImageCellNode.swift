@@ -88,7 +88,7 @@ final class LargeImageCellNode: ASCellNode {
     verticalStackSpec.children = [ imageStackSpec, kickerHeadlineStackSpec, summaryNode, footerNode ]
     verticalStackSpec.spacing = 10.0
     
-    let insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    let insets = UIEdgeInsets(all: 10)
     let insetSpec = ASInsetLayoutSpec(insets: insets, child: verticalStackSpec)
     
     return insetSpec
